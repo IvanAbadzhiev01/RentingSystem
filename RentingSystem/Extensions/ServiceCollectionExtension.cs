@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentingSystem.Data;
-using RentingSystem.Infrastructure.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -37,7 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.Password.RequireUppercase = false;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<RentingDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;
         }
