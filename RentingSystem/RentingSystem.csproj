@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RentingSystem.Core\RentingSystem.Core.csproj" />
+    <ProjectReference Include="..\RentingSystem.Infrastructure\RentingSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
