@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using RentingSystem.Data;
+using RentingSystem.Infrasturcture.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
