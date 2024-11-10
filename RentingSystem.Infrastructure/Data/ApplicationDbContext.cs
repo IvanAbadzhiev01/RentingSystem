@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentingSystem.Infrastructure.Data.Models;
+using RentingSystem.Infrastructure.Data.Models.SeedData;
 using System.Reflection.Emit;
 
 namespace RentingSystem.Infrasturcture.Data
@@ -10,7 +11,7 @@ namespace RentingSystem.Infrasturcture.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Car> Cars { get; set; } = null!;
@@ -33,6 +34,12 @@ namespace RentingSystem.Infrasturcture.Data
                 .WithMany(u => u.Cars)
                 .HasForeignKey(r => r.DealerId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new DealerConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new CarConfiguration());
+
 
             base.OnModelCreating(builder);
         }
