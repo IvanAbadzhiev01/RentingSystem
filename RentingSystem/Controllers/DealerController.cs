@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Dealer;
+using System.Security.Claims;
 
 namespace RentingSystem.Controllers
 {
@@ -17,6 +18,11 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Become()
         {
+            if (await dealerService.ExistsByIdAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
             var model = new BecomeDealerFormModel();
 
             return View(model);
