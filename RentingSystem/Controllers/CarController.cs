@@ -4,8 +4,7 @@ using RentingSystem.Core.Models.Car;
 
 namespace RentingSystem.Controllers
 {
-    [Authorize]
-    public class CarController : Controller
+    public class CarController : BaseController
     {
         [AllowAnonymous]
         [HttpGet]

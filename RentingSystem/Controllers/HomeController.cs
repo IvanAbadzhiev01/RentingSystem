@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace RentingSystem.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ICarService carService;
         private readonly ILogger<HomeController> _logger;
@@ -26,6 +26,7 @@ namespace RentingSystem.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
