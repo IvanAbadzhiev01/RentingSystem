@@ -32,6 +32,19 @@
 
         public const int CarFuelTypeMaxLength = 50;
 
+        public const string CarPriceMinValue = "0";
+
+        public const string CarPriceMaxValue = "100000";
+
+        public  const int CarSeatsMinValue = 1;
+
+        public  const int CarSeatsMaxValue = 100;
+
+        public const int CarYearMinValue = 1900;
+
+        public const int CarYearMaxValue = 2030;
+
+
         //Dealer
         public const int DealerPhoneMaxLength = 15;
 

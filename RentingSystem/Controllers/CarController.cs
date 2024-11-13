@@ -1,17 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Car;
-
+using System.Security.Claims;
+using static RentingSystem.Infrastructure.Constants.ErrorConstants;
 namespace RentingSystem.Controllers
 {
     public class CarController : BaseController
     {
+        private readonly ICarService carService;
+        private readonly IDealerService dealerService;
+        public CarController(
+            ICarService _carService,
+            IDealerService _dealerService)
+        {
+            carService = _carService;
+            dealerService = _dealerService;
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> All()
         {
             var model = new AllCarModel();
-            
+
             return View();
         }
 
@@ -32,15 +44,47 @@ namespace RentingSystem.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            return View();
+            if(!await dealerService.ExistsByIdAsync(User.Id()))
+            {
+                return RedirectToAction(nameof(DealerController.Become), "Dealer");
+            }
+            var model = new CarFormModel()
+            {
+                Categories = await carService.AllCategoriesAsync()
+            };
+
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CarFormModel model)
+        public async Task<IActionResult> Add(CarFormModel entity)
+
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (!await dealerService.ExistsByIdAsync(User.Id()))
+            {
+               return RedirectToAction(nameof(DealerController.Become), "Dealer");
+            }
+
+            if (await carService.CategoryExistsAsync(entity.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(entity.CategoryId), CategoryNotExist);
+            }
+           
+            if(ModelState.IsValid == false)
+            {
+                entity.Categories = await carService.AllCategoriesAsync();
+
+                return View(entity);
+            }
+
+            int? dealerId = await dealerService.GetDealerIdAsync(User.Id());
+
+            int newCarId = await carService.CreateAsync(entity, dealerId ?? 0);
+
+            return RedirectToAction(nameof(Details), new { Id = newCarId });
         }
 
         [HttpGet]
@@ -76,7 +120,7 @@ namespace RentingSystem.Controllers
         {
             return RedirectToAction(nameof(MyCar));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Return(int id)
         {

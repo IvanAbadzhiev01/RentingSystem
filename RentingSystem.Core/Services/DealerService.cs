@@ -25,6 +25,12 @@ namespace RentingSystem.Core.Services
             await repository.SaveChangesAsync();
         }
 
+        public async Task<int?> GetDealerIdAsync(string userId)
+        {
+            return (await repository
+                .AllReadOnly<Dealer>()
+                .FirstOrDefaultAsync(d => d.UserId == userId))?.Id ?? null;
+        }
         public async Task<bool> ExistsByIdAsync(string userId)
         {
            return await repository
