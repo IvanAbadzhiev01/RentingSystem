@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Home;
 using RentingSystem.Models;
 using System.Diagnostics;
@@ -7,16 +9,19 @@ namespace RentingSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICarService carService;
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ICarService _carService,
+            ILogger<HomeController> logger)
         {
+            carService = _carService;
             _logger = logger;
         }
-
-        public IActionResult Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            var model = await carService.LastForCarsAsync();
 
             return View(model);
         }

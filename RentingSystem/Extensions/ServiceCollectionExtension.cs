@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RentingSystem.Core.Contracts;
+using RentingSystem.Core.Services;
+using RentingSystem.Infrastructure.Data.Common;
 using RentingSystem.Infrasturcture.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -8,6 +11,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<ICarService, CarService>();
 
             return services;
         }
