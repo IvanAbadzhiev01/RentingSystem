@@ -1,6 +1,19 @@
-﻿@model AllCarModel
+﻿<link rel="stylesheet" href="~/css/carStyles.css" />
+@model IEnumerable<CarServiceModel>
 @{
     ViewData["Title"] = "My Cars";
 }
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You have no cars yet!</h2>
+}
+
+<div class="row">
+    @foreach(var cars in Model)
+    {
+        <partial name="_CarPartial" model="@cars" />
+    }
+</div>

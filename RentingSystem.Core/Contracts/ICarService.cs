@@ -24,6 +24,10 @@ namespace RentingSystem.Core.Contracts
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
 
+        Task<IEnumerable<CarServiceModel>> AllCarsByDealerIdAsync(int dealerId);
+
+        Task<IEnumerable<CarServiceModel>> AllCarsByUserIdAsync(string userId);
+
         
     }
 }

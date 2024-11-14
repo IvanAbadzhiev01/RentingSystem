@@ -38,8 +38,18 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> MyCar()
         {
-            var model = new AllCarModel();
+            var userId = User.Id();
+            IEnumerable<CarServiceModel> model;
 
+            if (await dealerService.ExistsByIdAsync(userId))
+            {
+                int dealerId = await dealerService.GetDealerIdAsync(userId) ?? 0;
+                model = await carService.AllCarsByDealerIdAsync(dealerId);
+            }
+            else
+            {
+                model = await carService.AllCarsByUserIdAsync(userId);
+            }
             return View(model);
         }
 

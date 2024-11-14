@@ -67,9 +67,43 @@ namespace RentingSystem.Core.Services
 
             return new CarQueryServiceModel()
             {
-                Cars = car, 
+                Cars = car,
                 TotalCarCount = totalCars
             };
+        }
+
+        public async Task<IEnumerable<CarServiceModel>> AllCarsByDealerIdAsync(int dealerId)
+        {
+            return await repository.AllReadOnly<Car>()
+                    .Where(c => c.DealerId == dealerId && c.IsApproved && c.IsDeleted == false)
+                    .Select(c => new CarServiceModel()
+                    {
+                        Id = c.Id,
+                        Make = c.Make,
+                        Model = c.Model,
+                        Year = c.Year,
+                        ImageUrl = c.ImageUrl,
+                        PricePerDay = c.PricePerDay,
+                        IsRented = c.RenterId != null
+                    })
+                    .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CarServiceModel>> AllCarsByUserIdAsync(string userId)
+        {
+            return await  repository.AllReadOnly<Car>()
+                    .Where(c => c.RenterId == userId && c.IsApproved && c.IsDeleted == false)
+                    .Select(c => new CarServiceModel()
+                    {
+                        Id = c.Id,
+                        Make = c.Make,
+                        Model = c.Model,
+                        Year = c.Year,
+                        ImageUrl = c.ImageUrl,
+                        PricePerDay = c.PricePerDay,
+                        IsRented = c.RenterId != null
+                    })
+                    .ToListAsync();
         }
 
         public async Task<IEnumerable<CarCategoryServiceModel>> AllCategoriesAsync()
@@ -143,5 +177,7 @@ namespace RentingSystem.Core.Services
                  .ToListAsync();
 
         }
+
+
     }
 }
