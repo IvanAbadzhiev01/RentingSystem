@@ -56,7 +56,12 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = new CarDetailsViewModel();
+           if(await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+           var model = await carService.CarDetailsByIdAsync(id);
 
             return View(model);
         }

@@ -127,6 +127,37 @@ namespace RentingSystem.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<CarDetailsServiceModel> CarDetailsByIdAsync(int id)
+        {
+            return await repository
+                .AllReadOnly<Car>()
+                .Where(c => c.IsApproved && c.IsDeleted == false)
+                .Where(c => c.Id == id)
+                .Select(c => new CarDetailsServiceModel()
+                {
+                    Id = c.Id,
+                    Title = $"{c.Make} {c.Model}",
+                    Make = c.Make,
+                    Model = c.Model,
+                    Year = c.Year,
+                    Shift = c.Shift,
+                    FuelType = c.FuelType,
+                    Seat = c.Seat,
+                    Description = c.Description,
+                    ImageUrl = c.ImageUrl,
+                    PricePerDay = c.PricePerDay,
+                    Category = c.Category.Name,
+                    Dealer = new DealerServiceModel()
+                    {
+                        PhoneNumber = c.Dealer.PhoneNumber,
+                        Email = c.Dealer.User.Email
+                    },
+                   
+                    IsRented = c.RenterId != null
+                })
+                .FirstAsync();
+        }
+
         public async Task<bool> CategoryExistsAsync(int categoryId)
         {
             return await repository
@@ -158,7 +189,13 @@ namespace RentingSystem.Core.Services
             return car.Id;
         }
 
-
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await repository
+                .AllReadOnly<Car>()
+                .Where(c => c.IsApproved && c.IsDeleted == false)
+                .AnyAsync(c => c.Id == id);
+        }
 
         public async Task<IEnumerable<IndexViewModel>> LastForCarsAsync()
         {

@@ -1,6 +1,61 @@
-﻿@model CarDetailsViewModel
+﻿<link rel="stylesheet" href="~/css/carStyles.css" />
+
+@model CarDetailsServiceModel
+
 @{
     ViewData["Title"] = "Car Details";
 }
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Car Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p><b>Year:</b> @Model.Year</p>
+            <p><b>Shift:</b> @Model.Shift</p>
+            <p><b>Seat:</b> @Model.Seat</p>
+            <p><b>Fuel Type:</b> @Model.FuelType</p>
+            <p><b>Price Per Day:</b> @String.Format("{0:f2}", Model.PricePerDay) BGN</p>
+            <p><b>Description:</b> @Model.Description</p>
+            <p><b>Category:</b> @Model.Category</p>
+            <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
+            <div class="form-inline">
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                    @if (!Model.IsRented)
+                    {
+                        <form class="ml-2" asp-controller="Car"
+                              asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary bg-light" type="submit" value="Rent" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="ml-2" asp-controller="Car" asp-action="Leave"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary bg-light" type="submit" value="Leave" />
+                        </form>
+                    }
+                }
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Dealer Info</h5>
+                    <p class="card-text"><b>Email:</b>  @Model.Dealer.Email</p>
+                    <p class="card-text"><b>Phone Number:</b> @Model.Dealer.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
