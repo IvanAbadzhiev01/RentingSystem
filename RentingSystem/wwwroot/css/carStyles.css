@@ -1,0 +1,105 @@
+﻿body {
+    background-color: #e3f2fd;
+    color: #ffffff;
+}
+
+
+h2.text-center {
+    color: #ffffff;
+}
+
+
+.card {
+    background-color: #007bff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: #ffffff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+
+    .card h4 {
+        color: #ffffff;
+    }
+
+    .card h6 {
+        color: #f0f0f0;
+    }
+
+    .btn-warning{
+        color:white
+    }
+
+
+.btn-success:hover,
+.btn-warning:hover,
+.btn-danger:hover,
+.btn-primary {
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+
+.form-control {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+    .form-control::placeholder {
+        color: #666666;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+
+
+input[type="submit"] {
+    background-color: #ffc107;
+    color: #333333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+    input[type="submit"]:hover {
+        background-color: #e0a800;
+    }
+
+
+.btn-primary.disabled {
+    background-color: #cccccc;
+    color: #666666;
+    border: none;
+}
+
+.btn-primary,
+.btn-primary:not(.disabled) {
+    background-color: #ffc107;
+    color: #333333;
+}
+
+    .btn-primary:hover {
+        background-color: #e0a800;
+    }
+
+
+.container {
+    padding: 20px;
+}
+
+.row {
+    margin-top: 20px;
+}
