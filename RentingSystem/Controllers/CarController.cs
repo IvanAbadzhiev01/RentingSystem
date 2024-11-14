@@ -113,15 +113,42 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new CarFormModel();
+            if(await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if(await carService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await carService.GetCarFormModelByIdAsync(id);
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CarFormModel model)
+        public async Task<IActionResult> Edit(int id, CarFormModel entity)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await carService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+            if (await carService.CategoryExistsAsync(entity.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(entity.CategoryId), CategoryNotExist);
+              
+                return View(entity);
+            }
+            await carService.EditAsync(id, entity);
+
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         [HttpGet]

@@ -91,7 +91,7 @@ namespace RentingSystem.Core.Services
 
         public async Task<IEnumerable<CarServiceModel>> AllCarsByUserIdAsync(string userId)
         {
-            return await  repository.AllReadOnly<Car>()
+            return await repository.AllReadOnly<Car>()
                     .Where(c => c.RenterId == userId && c.IsApproved && c.IsDeleted == false)
                     .Select(c => new CarServiceModel()
                     {
@@ -152,7 +152,7 @@ namespace RentingSystem.Core.Services
                         PhoneNumber = c.Dealer.PhoneNumber,
                         Email = c.Dealer.User.Email
                     },
-                   
+
                     IsRented = c.RenterId != null
                 })
                 .FirstAsync();
@@ -189,12 +189,73 @@ namespace RentingSystem.Core.Services
             return car.Id;
         }
 
+        public async Task EditAsync(int carId, CarFormModel model)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.Title = $"{model.Make} {model.Model}";
+                car.Make = model.Make;
+                car.Model = model.Model;
+                car.Year = model.Year;
+                car.Shift = model.Shift;
+                car.FuelType = model.FuelType;
+                car.Seat = model.Seat;
+                car.Description = model.Description;
+                car.ImageUrl = model.ImageUrl;
+                car.PricePerDay = model.PricePerDay;
+                car.CategoryId = model.CategoryId;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
         public async Task<bool> ExistsAsync(int id)
         {
             return await repository
                 .AllReadOnly<Car>()
                 .Where(c => c.IsApproved && c.IsDeleted == false)
                 .AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<CarFormModel> GetCarFormModelByIdAsync(int id)
+        {
+            var car = await repository
+                 .AllReadOnly<Car>()
+                 .Where(c => c.IsApproved && c.IsDeleted == false)
+                 .Where(c => c.Id == id)
+                 .Select(c => new CarFormModel()
+                 {
+                     
+                     Make = c.Make,
+                     Model = c.Model,
+                     Year = c.Year,
+                     Shift = c.Shift,
+                     FuelType = c.FuelType,
+                     Seat = c.Seat,
+                     Description = c.Description,
+                     ImageUrl = c.ImageUrl,
+                     PricePerDay = c.PricePerDay,
+                     CategoryId = c.CategoryId,
+
+                 })
+                 .FirstOrDefaultAsync();
+
+            if (car != null)
+            {
+                car.Categories = await AllCategoriesAsync();
+
+            }
+            return car;
+        }
+
+        public async Task<bool> HasDealerWithIdAsync(int carId, string currentUserId)
+        {
+            return await repository
+                   .AllReadOnly<Car>()
+                   .Where(c => c.IsApproved && c.IsDeleted == false)
+                   .AnyAsync(c => c.Id == carId && c.Dealer.UserId == currentUserId);
         }
 
         public async Task<IEnumerable<IndexViewModel>> LastForCarsAsync()

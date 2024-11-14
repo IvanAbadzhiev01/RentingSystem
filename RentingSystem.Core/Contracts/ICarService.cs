@@ -31,5 +31,11 @@ namespace RentingSystem.Core.Contracts
         Task<bool> ExistsAsync(int id);
 
         Task<CarDetailsServiceModel> CarDetailsByIdAsync(int id);
+
+        Task EditAsync(int carId, CarFormModel model);
+
+        Task<bool> HasDealerWithIdAsync(int carId, string currentUserId);
+
+        Task<CarFormModel> GetCarFormModelByIdAsync(int id);
     }
 }
