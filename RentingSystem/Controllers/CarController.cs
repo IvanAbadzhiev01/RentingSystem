@@ -20,14 +20,14 @@ namespace RentingSystem.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllCarModel query)
+        public async Task<IActionResult> All([FromQuery] AllCarModel query)
         {
-           var model = await carService.AllAsync(
-                query.Category,
-                query.SearchTerm,
-                query.Sorting,
-                query.CurrentPage,
-                AllCarModel.CarsPerPage); 
+            var model = await carService.AllAsync(
+                 query.Category,
+                 query.SearchTerm,
+                 query.Sorting,
+                 query.CurrentPage,
+                 AllCarModel.CarsPerPage);
 
             query.TotalCarsCount = model.TotalCarCount;
             query.Cars = model.Cars;
@@ -56,12 +56,12 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-           if(await carService.ExistsAsync(id) == false)
+            if (await carService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
 
-           var model = await carService.CarDetailsByIdAsync(id);
+            var model = await carService.CarDetailsByIdAsync(id);
 
             return View(model);
         }
@@ -69,7 +69,7 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            if(!await dealerService.ExistsByIdAsync(User.Id()))
+            if (!await dealerService.ExistsByIdAsync(User.Id()))
             {
                 return RedirectToAction(nameof(DealerController.Become), "Dealer");
             }
@@ -88,15 +88,15 @@ namespace RentingSystem.Controllers
         {
             if (!await dealerService.ExistsByIdAsync(User.Id()))
             {
-               return RedirectToAction(nameof(DealerController.Become), "Dealer");
+                return RedirectToAction(nameof(DealerController.Become), "Dealer");
             }
 
             if (await carService.CategoryExistsAsync(entity.CategoryId) == false)
             {
                 ModelState.AddModelError(nameof(entity.CategoryId), CategoryNotExist);
             }
-           
-            if(ModelState.IsValid == false)
+
+            if (ModelState.IsValid == false)
             {
                 entity.Categories = await carService.AllCategoriesAsync();
 
@@ -113,12 +113,12 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if(await carService.ExistsAsync(id) == false)
+            if (await carService.ExistsAsync(id) == false)
             {
                 return BadRequest();
             }
 
-            if(await carService.HasDealerWithIdAsync(id, User.Id()) == false)
+            if (await carService.HasDealerWithIdAsync(id, User.Id()) == false)
             {
                 return Unauthorized();
             }
@@ -143,7 +143,7 @@ namespace RentingSystem.Controllers
             if (await carService.CategoryExistsAsync(entity.CategoryId) == false)
             {
                 ModelState.AddModelError(nameof(entity.CategoryId), CategoryNotExist);
-              
+
                 return View(entity);
             }
             await carService.EditAsync(id, entity);
@@ -154,7 +154,25 @@ namespace RentingSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = new CarDetailsViewModel();
+
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+            if (await carService.HasDealerWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var car = await carService.CarDetailsByIdAsync(id);
+
+            var model = new CarDetailsViewModel()
+            {
+                Id = id,
+                Title = car.Title,
+                ImageUrl = car.ImageUrl,
+                Year = car.Year
+            };
 
             return View(model);
         }
@@ -162,7 +180,19 @@ namespace RentingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(CarDetailsViewModel model)
         {
-            return RedirectToAction(nameof(MyCar));
+            if (await carService.ExistsAsync(model.Id) == false)
+            {
+                return BadRequest();
+            }
+            if (await carService.HasDealerWithIdAsync(model.Id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+           await carService.DeleteAsync(model.Id);
+
+            return RedirectToAction(nameof(All));
+
         }
 
         [HttpPost]

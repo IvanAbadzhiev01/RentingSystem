@@ -189,6 +189,12 @@ namespace RentingSystem.Core.Services
             return car.Id;
         }
 
+        public async Task DeleteAsync(int carId)
+        {
+           await repository.SoftDeleteAsync<Car>(carId);
+           await repository.SaveChangesAsync();
+        }
+
         public async Task EditAsync(int carId, CarFormModel model)
         {
             var car = await repository.GetByIdAsync<Car>(carId);
