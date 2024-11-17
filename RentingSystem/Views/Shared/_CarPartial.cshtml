@@ -12,7 +12,7 @@
             </h6>
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
             <br />
-            <a asp-controller="Cat" asp-action="Details" asp-route-id="@Model.Id"
+            <a asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {

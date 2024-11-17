@@ -58,7 +58,7 @@ namespace RentingSystem.Controllers
         {
             if (await carService.ExistsAsync(id) == false)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             var model = await carService.CarDetailsByIdAsync(id);
