@@ -107,7 +107,7 @@ namespace RentingSystem.Controllers
 
             int newCarId = await carService.CreateAsync(entity, dealerId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { Id = newCarId });
+            return RedirectToAction(nameof(MyCar));
         }
 
         [HttpGet]
@@ -198,13 +198,41 @@ namespace RentingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Rent(int id)
         {
-            return RedirectToAction(nameof(MyCar));
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+            if(await dealerService.ExistsByIdAsync(User.Id()))
+            {
+                return Unauthorized();
+            }
+            if (await carService.IsRentedAsync(id))
+            {
+                return BadRequest();
+            }
+           
+            await carService.RentAsync(id, User.Id());
+
+            return RedirectToAction(nameof(All));
         }
 
         [HttpPost]
         public async Task<IActionResult> Return(int id)
         {
-            return RedirectToAction(nameof(MyCar));
+            if (await carService.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await carService.IsRentedByUserWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            await carService.ReturnAsync(id);
+
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

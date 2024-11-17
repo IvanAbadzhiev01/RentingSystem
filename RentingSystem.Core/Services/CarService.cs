@@ -264,6 +264,35 @@ namespace RentingSystem.Core.Services
                    .AnyAsync(c => c.Id == carId && c.Dealer.UserId == currentUserId);
         }
 
+        public async Task<bool> IsRentedAsync(int carId)
+        {
+            bool result = false; 
+
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if(car != null)
+            {
+                result = car.RenterId != null;
+            }
+
+            return result;
+        }
+
+
+        public async Task<bool> IsRentedByUserWithIdAsync(int carId, string userId)
+        {
+            bool result = false;
+
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                result = car.RenterId == userId;
+            }
+
+            return result;
+        }
+
         public async Task<IEnumerable<IndexViewModel>> LastForCarsAsync()
         {
             return await repository
@@ -282,6 +311,28 @@ namespace RentingSystem.Core.Services
 
         }
 
+        public async Task ReturnAsync(int carId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
 
+            if (car != null)
+            {
+                car.RenterId = null;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task RentAsync(int carId, string userId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.RenterId = userId;
+
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }
