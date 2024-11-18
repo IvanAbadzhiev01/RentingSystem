@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Services;
 using RentingSystem.Infrastructure.Data.Common;
+using RentingSystem.Infrastructure.Data.Models;
 using RentingSystem.Infrasturcture.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -32,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.User.RequireUniqueEmail = true;
                     options.SignIn.RequireConfirmedAccount = false;

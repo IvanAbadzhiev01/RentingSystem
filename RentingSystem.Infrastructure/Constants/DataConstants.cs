@@ -49,5 +49,11 @@
         public const int DealerPhoneMaxLength = 15;
 
         public const int DealerPhoneMinLength = 7;
+
+        //ApplicationUser
+        public const int ApplicationUserFirstNameMinLength = 2;
+        public const int ApplicationUserFirstNameMaxLength = 50;
+        public const int ApplicationUserLastNameMinLength = 2;
+        public const int ApplicationUserLastNameMaxLength = 50;
     }
 }

@@ -66,7 +66,7 @@ namespace RentingSystem.Infrastructure.Data.Models
             get; set;
         }
         [ForeignKey(nameof(RenterId))]
-        public IdentityUser? Renter { get; set; }
+        public ApplicationUser? Renter { get; set; }
 
         [Required]
         [MaxLength(CarShiftMaxLength)]
