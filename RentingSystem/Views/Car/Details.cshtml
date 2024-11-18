@@ -1,5 +1,6 @@
 ﻿<link rel="stylesheet" href="~/css/carStyles.css" />
-
+@inject IDealerService dealerService
+@inject ICarService carService
 @model CarDetailsServiceModel
 
 @{
@@ -28,34 +29,40 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-warning" asp-controller="Car" asp-action="Edit"
-                       asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Car" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
-                    @if (!Model.IsRented)
+                    if (await carService.HasDealerWithIdAsync(Model.Id, User.Id()))
                     {
-                        <form class="ml-2" asp-controller="Car"
+                        <a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id"
+                           class="btn btn-warning">Edit</a>
+                        <a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
+                           class="btn btn-danger">Delete</a>
+                    }
+                    @if (!Model.IsRented && (await dealerService.ExistsByIdAsync(User.Id())) == false)
+                    {
+                        <form class="input-group-sm" asp-controller="Car"
                               asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary bg-light" type="submit" value="Rent" />
                         </form>
                     }
-                    else
+                    else if (await carService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
                     {
-                        <form class="ml-2" asp-controller="Car" asp-action="Leave"
+                        <form asp-controller="Car" asp-action="Return"
                               asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary bg-light" type="submit" value="Leave" />
+                            <input class="btn btn-primary bg-light" type="submit" value="Return" />
                         </form>
                     }
                 }
             </div>
             <p></p>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Dealer Info</h5>
-                    <p class="card-text"><b>Email:</b>  @Model.Dealer.Email</p>
-                    <p class="card-text"><b>Phone Number:</b> @Model.Dealer.PhoneNumber</p>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Dealer Info</h5>
+                        <p class="card-text"><b>Email:</b>  @Model.Dealer.Email</p>
+                        <p class="card-text"><b>Phone Number:</b> @Model.Dealer.PhoneNumber</p>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>

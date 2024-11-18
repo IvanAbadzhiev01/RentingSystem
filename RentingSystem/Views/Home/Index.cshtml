@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<IndexViewModel>
-
+@inject IDealerService dealerService
 @{
     ViewData["Title"] = "Home Page";
     var cars = Model.ToList();
@@ -15,7 +15,7 @@
         </p>
         <hr class="my-4">
         <p class="lead">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && await dealerService.ExistsByIdAsync(User.Id()))
             {
                 <a asp-controller="Car" asp-action="Add" class="btn btn-primary btn-lg"
                    role="button">Add Car</a>

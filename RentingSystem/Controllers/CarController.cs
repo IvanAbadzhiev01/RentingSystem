@@ -55,6 +55,7 @@ namespace RentingSystem.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id, string information)
         {
             if (await carService.ExistsAsync(id) == false)
