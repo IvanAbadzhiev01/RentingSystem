@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Core.Contracts;
+using RentingSystem.Core.Extensions;
 using RentingSystem.Core.Models.Car;
 using System.Security.Claims;
 using static RentingSystem.Infrastructure.Constants.ErrorConstants;
@@ -54,14 +55,20 @@ namespace RentingSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if (await carService.ExistsAsync(id) == false)
             {
                 return NotFound();
             }
+            
 
             var model = await carService.CarDetailsByIdAsync(id);
+
+            if(information != model.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }
@@ -148,7 +155,7 @@ namespace RentingSystem.Controllers
             }
             await carService.EditAsync(id, entity);
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id, Information = entity.GetInformation() });
         }
 
         [HttpGet]

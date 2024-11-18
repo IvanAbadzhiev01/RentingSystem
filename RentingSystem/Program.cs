@@ -36,7 +36,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+app.MapControllerRoute(
+        name: "Car Details",
+        pattern: "/Car/Details/{id}/{information}",
+        defaults: new { Controller = "Car", Action = "Details" }
+        );
+
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+
+
 
 await app.RunAsync();

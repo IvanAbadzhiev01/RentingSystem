@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RentingSystem.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static RentingSystem.Infrastructure.Constants.DataConstants;
 using static RentingSystem.Infrastructure.Constants.ErrorConstants;
 
 namespace RentingSystem.Core.Models.Car
 {
-    public class CarFormModel
+    public class CarFormModel : ICarModel
     {
         [Required(ErrorMessage = ReqiredFildError)]
         [StringLength(CarMakeMaxLength, MinimumLength = CarMakeMinLength, ErrorMessage = StringLengthError)]

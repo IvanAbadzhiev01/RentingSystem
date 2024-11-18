@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RentingSystem.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static RentingSystem.Infrastructure.Constants.DataConstants;
 using static RentingSystem.Infrastructure.Constants.ErrorConstants;
 namespace RentingSystem.Core.Models.Car
 {
-    public class CarServiceModel
+    public class CarServiceModel : ICarModel
     {
         public int Id { get; set; }
 
@@ -38,6 +39,5 @@ namespace RentingSystem.Core.Models.Car
 
         [Display(Name = "Is Rented")]
         public bool IsRented  { get; set; }
-
     }
 }
