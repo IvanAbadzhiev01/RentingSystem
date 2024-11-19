@@ -149,6 +149,7 @@ namespace RentingSystem.Core.Services
                     Category = c.Category.Name,
                     Dealer = new DealerServiceModel()
                     {
+                        FullName = $"{c.Dealer.User.FirstName} {c.Dealer.User.LastName}",
                         PhoneNumber = c.Dealer.PhoneNumber,
                         Email = c.Dealer.User.Email
                     },
