@@ -39,7 +39,7 @@ namespace RentingSystem.Infrasturcture.Data
             builder.ApplyConfiguration(new DealerConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CarConfiguration());
-
+            builder.ApplyConfiguration(new UserClaimConfiguration());
 
             base.OnModelCreating(builder);
         }

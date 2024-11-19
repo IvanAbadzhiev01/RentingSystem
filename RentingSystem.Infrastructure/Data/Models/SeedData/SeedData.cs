@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-
+using static RentingSystem.Infrastructure.Constants.CustomClaims;
 namespace RentingSystem.Infrastructure.Data.Models.SeedData
 {
     internal class SeedData
@@ -12,14 +12,20 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
 
         public Dealer Dealer { get; set; }
 
+        public Dealer AdminDealer { get; set; }
+
         public Category Sedan { get; set; }
 
         public Category Hatchback { get; set; }
 
         public Category StationWagonan { get; set; }
+
         public Category Coupe { get; set; }
+
         public Category Convertible { get; set; }
+
         public Category Jeep { get; set; }
+
         public Category Pickup { get; set; }
 
         public Car FirstCar { get; set; }
@@ -28,12 +34,14 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
 
         public Car ThirdCar { get; set; }
 
+        public List<IdentityUserClaim<string>> Claims { get; private set; }
         public SeedData()
         {
             SeedUsers();
             SeedDealer();
             SeedCategories();
             SeedCars();
+            SeedClaims();
         }
 
         private void SeedUsers()
@@ -92,6 +100,12 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
                 Id = 1,
                 PhoneNumber = "+359888888888",
                 UserId = DealerUser.Id
+            };
+            AdminDealer = new Dealer()
+            {
+                Id = 2,
+                PhoneNumber = "0000000000000",
+                UserId = AdminUser.Id
             };
 
         }
@@ -196,6 +210,34 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
                 CategoryId = Jeep.Id,
                 DealerId = Dealer.Id,
                 IsApproved = true
+            };
+        }
+
+        private void SeedClaims()
+        {
+            Claims = new List<IdentityUserClaim<string>>
+            {
+                new IdentityUserClaim<string>
+                {
+                    Id = 1, 
+                    UserId = AdminUser.Id,
+                    ClaimType = UserFullName,
+                    ClaimValue = $"{AdminUser.FirstName} {AdminUser.LastName}"
+                },
+                new IdentityUserClaim<string>
+                {
+                    Id = 2,
+                    UserId = DealerUser.Id,
+                    ClaimType = UserFullName,
+                    ClaimValue = $"{DealerUser.FirstName} {DealerUser.LastName}"
+                },
+                new IdentityUserClaim<string>
+                {
+                    Id = 3,
+                    UserId = GuestUser.Id,
+                    ClaimType = UserFullName,
+                    ClaimValue = $"{GuestUser.FirstName} {GuestUser.LastName}"
+                }
             };
         }
 

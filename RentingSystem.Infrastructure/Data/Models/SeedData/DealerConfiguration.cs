@@ -12,7 +12,7 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             builder.HasData(new Dealer[]
             {
                 data.Dealer,
-                
+                data.AdminDealer
             });
         }
     }
