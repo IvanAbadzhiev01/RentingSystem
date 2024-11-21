@@ -43,6 +43,10 @@ app.MapControllerRoute(
         pattern: "/Car/Details/{id}/{information}",
         defaults: new { Controller = "Car", Action = "Details" }
         );
+app.MapControllerRoute(
+          name: "areas",
+          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+  );
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
