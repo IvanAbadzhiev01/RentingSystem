@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RentingSystem.Infrastructure.Data.Models;
-using static RentingSystem.Infrastructure.Constants.RoleConstants;
+using static RentingSystem.Infrastructure.Constants.AdministratorConstants;
 namespace Microsoft.AspNetCore.Builder
 {
     public static class ApplicationBuilderExtensions

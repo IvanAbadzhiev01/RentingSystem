@@ -12,5 +12,7 @@ namespace RentingSystem.Infrastructure.Data.Models
         [Required]
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; set; } = string.Empty;
+
+        public Dealer? Dealer { get; set; } 
     }
 }

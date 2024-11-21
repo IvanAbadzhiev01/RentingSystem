@@ -2,7 +2,7 @@
 @inject IDealerService dealerService
 @inject ICarService carService
 <div class="col-md-4">
-    <div class="card mb-3">
+    <div class="card mb-3 bg-warning">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Car Image">
         <div class="card-body text-center">
             <h4>@Model.Make @Model.Model</h4>
@@ -22,7 +22,7 @@
                 || User.IsAdmin())
                 {
                     <a asp-area="" asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id"
-                       class="btn btn-warning">Edit</a>
+                       class="btn btn-primary text-white">Edit</a>
                     <a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-danger">Delete</a>
                 }

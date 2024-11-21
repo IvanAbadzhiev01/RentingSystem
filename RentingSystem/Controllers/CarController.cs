@@ -41,7 +41,10 @@ namespace RentingSystem.Controllers
         {
             var userId = User.Id();
             IEnumerable<CarServiceModel> model;
-
+            if (User.IsAdmin())
+            {
+              return  RedirectToAction("MyCar", "Car", new { area = "Admin" });
+            }
             if (await dealerService.ExistsByIdAsync(userId))
             {
                 int dealerId = await dealerService.GetDealerIdAsync(userId) ?? 0;

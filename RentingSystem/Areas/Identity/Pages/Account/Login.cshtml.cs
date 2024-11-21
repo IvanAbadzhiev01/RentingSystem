@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RentingSystem.Infrastructure.Data.Models;
-using static RentingSystem.Infrastructure.Constants.RoleConstants;
+using static RentingSystem.Infrastructure.Constants.AdministratorConstants;
 namespace RentingSystem.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
