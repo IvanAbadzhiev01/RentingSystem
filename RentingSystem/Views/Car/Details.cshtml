@@ -29,14 +29,16 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    if (await carService.HasDealerWithIdAsync(Model.Id, User.Id()))
+                    if (await carService.HasDealerWithIdAsync(Model.Id, User.Id())
+                    || User.IsAdmin())
                     {
                         <a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id"
                            class="btn btn-warning">Edit</a>
                         <a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
                            class="btn btn-danger">Delete</a>
                     }
-                    @if (!Model.IsRented && (await dealerService.ExistsByIdAsync(User.Id())) == false)
+                    @if (!Model.IsRented && (await dealerService.ExistsByIdAsync(User.Id())) == false
+                    || User.IsAdmin())
                     {
                         <form class="input-group-sm" asp-controller="Car"
                               asp-action="Rent" asp-route-id="@Model.Id" method="post">
