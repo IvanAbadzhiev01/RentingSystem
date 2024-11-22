@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Admin;
+using RentingSystem.Core.Models.Rent;
 using RentingSystem.Infrastructure.Data.Common;
 using RentingSystem.Infrastructure.Data.Models;
 
@@ -57,6 +58,54 @@ namespace RentingSystem.Core.Services
 
                 await repository.SaveChangesAsync();
             }
+        }
+
+        public async Task<RentViewModel> GetCarForRentAsync(int carId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+
+            var viewModel = new RentViewModel
+            {
+                CarId = car.Id,
+                Title = car.Title,
+                ImageUrl = car.ImageUrl,
+                Description = car.Description,
+                Year = car.Year,
+                PricePerDay = car.PricePerDay
+            };
+
+            return viewModel;
+        }
+
+        public async Task CreateRentAsync(int carId, int days, string userId)
+        {
+
+            var car = await repository.GetByIdAsync<Car>(carId);
+            if (car != null)
+            {
+
+                var rentStartDate = DateTime.Now;
+                var rentEndDate = rentStartDate.AddDays(days);
+
+
+                var rent = new Rent
+                {
+                    CarId = carId,
+                    UserId = userId,
+                    RentDate = rentStartDate,
+                    ReturnDate = rentEndDate,
+
+                };
+
+
+                await repository.AddAsync<Rent>(rent);
+
+                await RentAsync(carId, userId);
+
+            }
+
+
         }
     }
 }

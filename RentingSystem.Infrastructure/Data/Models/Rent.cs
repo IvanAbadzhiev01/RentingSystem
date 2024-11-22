@@ -35,5 +35,9 @@ namespace RentingSystem.Infrastructure.Data.Models
         [Required]
         [Comment("Date of returning")]
         public DateTime ReturnDate { get; set; }
+
+        [Required]
+        [Comment("Is the car return or not")]
+        public bool IsReturned { get; set; } = false;
     }
 }

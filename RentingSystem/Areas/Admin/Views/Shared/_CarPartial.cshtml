@@ -35,13 +35,7 @@
                         <input class="btn btn-primary" type="submit" value="Rent" />
                     </form>
                 }
-                else if (await carService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
-                {
-                    <form asp-area="" asp-controller="Car" asp-action="Return"
-                          asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Return" />
-                    </form>
-                }
+                
             }
         </div>
     </div>

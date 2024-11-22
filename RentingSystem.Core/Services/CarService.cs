@@ -65,6 +65,21 @@ namespace RentingSystem.Core.Services
 
             int totalCars = await carToShow.CountAsync();
 
+            DateTime now = DateTime.Now;
+            var allRentedCars = await repository.All<Rent>()
+                .Where(c =>  c.ReturnDate < now && c.IsReturned == false)
+                .ToListAsync();
+            if (allRentedCars.Any())
+            {
+                foreach (var rentedCar in allRentedCars)
+                {
+                    var carToReturn = await repository.GetByIdAsync<Car>(rentedCar.CarId);
+                    carToReturn.RenterId = null;
+                    rentedCar.IsReturned = true;
+                    await repository.SaveChangesAsync();
+                }
+            };
+
             return new CarQueryServiceModel()
             {
                 Cars = car,

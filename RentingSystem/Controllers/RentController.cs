@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Areas.Admin.Controllers;
 using RentingSystem.Core.Contracts;
+using RentingSystem.Core.Models.Rent;
+using RentingSystem.Core.Services;
 using System.Security.Claims;
 using static RentingSystem.Infrastructure.Constants.ToastrMessageConstants;
 
@@ -21,7 +23,7 @@ namespace RentingSystem.Controllers
             dealerService = _dealerService;
             rentService = _rentService;
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Rent(int id)
         {
             if (await carService.ExistsAsync(id) == false)
@@ -40,32 +42,39 @@ namespace RentingSystem.Controllers
                 return BadRequest();
             }
 
-            await rentService.RentAsync(id, User.Id());
-            TempData[Success] = CarRentSuccess;
+            var car = await rentService.GetCarForRentAsync(id);
 
-            return RedirectToAction("All", "Car");
+
+            return View(car);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Return(int id)
+        public async Task<IActionResult> ConfirmRent(int id, int days)
         {
             if (await carService.ExistsAsync(id) == false)
             {
-                TempData[Error] = CarReturnError;
+                TempData[Error] = CarRentError;
+                return BadRequest();
+            }
+            if (await dealerService.ExistsByIdAsync(User.Id()) && User.IsAdmin() == false)
+            {
+                TempData[Error] = CarRentError;
+                return Unauthorized();
+            }
+            if (await carService.IsRentedAsync(id))
+            {
+                TempData[Error] = CarRentError;
                 return BadRequest();
             }
 
-            if (await carService.IsRentedByUserWithIdAsync(id, User.Id()) == false)
-            {
-                TempData[Error] = CarReturnError;
-                return Unauthorized();
-            }
-            TempData[Success] = CarReturnSuccess;
-            await rentService.ReturnAsync(id);
 
-
+            await rentService.CreateRentAsync(id, days, User.Id());
+            TempData[Success] = CarRentSuccess;
             return RedirectToAction("All", "Car");
-
         }
+
+
+
+       
     }
 }

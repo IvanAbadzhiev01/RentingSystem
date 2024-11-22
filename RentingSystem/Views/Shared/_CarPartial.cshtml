@@ -31,17 +31,11 @@
                 @if (!Model.IsRented && ((await dealerService.ExistsByIdAsync(User.Id())) == false || User.IsAdmin()))
                 {
                     <form class="input-group-sm" asp-controller="Rent"
-                          asp-area="" asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                          asp-area="" asp-action="Rent" asp-route-id="@Model.Id" method="get">
                         <input class="btn btn-primary" type="submit" value="Rent" />
                     </form>
                 }
-                else if (await carService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
-                {
-                    <form asp-area="" asp-controller="Rent" asp-action="Return"
-                          asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Return" />
-                    </form>
-                }
+               
             }
         </div>
     </div>

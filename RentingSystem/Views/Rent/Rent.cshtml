@@ -1,0 +1,20 @@
+﻿@model RentViewModel
+
+<form method="post" asp-action="ConfirmRent" asp-controller="Rent" asp-route-id="@Model.CarId">
+    <img class="" src="@Model.ImageUrl" alt="Car Image">
+    <h2>@Model.Title</h2>
+    <p>@Model.Description</p>
+    <p>Year: @Model.Year</p>
+    <p>Price per day: @Model.PricePerDay</p>
+    <label for="days">Days:</label>
+    <input type="number" id="days" name="Days" min="1" value="1" onchange="updatePrice()" />
+    <p>Total Price: <span id="totalPrice">@Model.PricePerDay BGN</span></p>
+    <button class="btn btn-success" type="submit">Rent</button>
+</form>
+<script>
+    function updatePrice() {
+        const days = document.getElementById('days').value;
+        const pricePerDay = @Model.PricePerDay;
+        document.getElementById('totalPrice').innerText = `${(days * pricePerDay).toFixed(2)} BGN`;
+    }
+</script>

@@ -1,4 +1,5 @@
 ﻿using RentingSystem.Core.Models.Admin;
+using RentingSystem.Core.Models.Rent;
 
 namespace RentingSystem.Core.Contracts
 {
@@ -10,5 +11,8 @@ namespace RentingSystem.Core.Contracts
 
         Task ReturnAsync(int carId);
 
+        Task<RentViewModel> GetCarForRentAsync(int carId);
+
+        Task CreateRentAsync(int carId, int days, string userId);
     }
 }
