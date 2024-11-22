@@ -5,6 +5,7 @@ using RentingSystem.Core.Extensions;
 using RentingSystem.Core.Models.Car;
 using System.Security.Claims;
 using static RentingSystem.Infrastructure.Constants.ErrorConstants;
+using static RentingSystem.Infrastructure.Constants.ToastrMessageConstants;
 namespace RentingSystem.Controllers
 {
     public class CarController : BaseController
@@ -211,18 +212,22 @@ namespace RentingSystem.Controllers
         {
             if (await carService.ExistsAsync(id) == false)
             {
+                TempData[Error] = CarRentError;
                 return BadRequest();
             }
             if(await dealerService.ExistsByIdAsync(User.Id()) && User.IsAdmin() == false)
             {
+                TempData[Error] = CarRentError;
                 return Unauthorized();
             }
             if (await carService.IsRentedAsync(id))
             {
+                TempData[Error] = CarRentError;
                 return BadRequest();
             }
            
             await carService.RentAsync(id, User.Id());
+            TempData[Success] = CarRentSuccess;
 
             return RedirectToAction(nameof(All));
         }
@@ -232,14 +237,16 @@ namespace RentingSystem.Controllers
         {
             if (await carService.ExistsAsync(id) == false)
             {
+                TempData[Error] = CarReturnError;
                 return BadRequest();
             }
 
             if (await carService.IsRentedByUserWithIdAsync(id, User.Id()) == false)
             {
+                TempData[Error] = CarReturnError;
                 return Unauthorized();
             }
-
+            TempData[Success] = CarReturnSuccess;
             await carService.ReturnAsync(id);
 
 

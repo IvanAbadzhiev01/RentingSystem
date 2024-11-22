@@ -10,5 +10,7 @@
         public const string HasRents = "Dealer has rents";
         //Categoryes
         public const string CategoryNotExist = "Category does not exist";
+
+
     }
 }
