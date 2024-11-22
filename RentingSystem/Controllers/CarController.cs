@@ -44,7 +44,7 @@ namespace RentingSystem.Controllers
             IEnumerable<CarServiceModel> model;
             if (User.IsAdmin())
             {
-              return  RedirectToAction("MyCar", "Car", new { area = "Admin" });
+                return RedirectToAction("MyCar", "Car", new { area = "Admin" });
             }
             if (await dealerService.ExistsByIdAsync(userId))
             {
@@ -66,11 +66,11 @@ namespace RentingSystem.Controllers
             {
                 return NotFound();
             }
-            
+
 
             var model = await carService.CarDetailsByIdAsync(id);
 
-            if(information != model.GetInformation())
+            if (information != model.GetInformation())
             {
                 return BadRequest();
             }
@@ -205,7 +205,7 @@ namespace RentingSystem.Controllers
                 return Unauthorized();
             }
 
-           await carService.DeleteAsync(model.Id);
+            await carService.DeleteAsync(model.Id);
 
             TempData[Success] = DeleteCarSuccess;
 
@@ -214,50 +214,6 @@ namespace RentingSystem.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Rent(int id)
-        {
-            if (await carService.ExistsAsync(id) == false)
-            {
-                TempData[Error] = CarRentError;
-                return BadRequest();
-            }
-            if(await dealerService.ExistsByIdAsync(User.Id()) && User.IsAdmin() == false)
-            {
-                TempData[Error] = CarRentError;
-                return Unauthorized();
-            }
-            if (await carService.IsRentedAsync(id))
-            {
-                TempData[Error] = CarRentError;
-                return BadRequest();
-            }
-           
-            await carService.RentAsync(id, User.Id());
-            TempData[Success] = CarRentSuccess;
 
-            return RedirectToAction(nameof(All));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Return(int id)
-        {
-            if (await carService.ExistsAsync(id) == false)
-            {
-                TempData[Error] = CarReturnError;
-                return BadRequest();
-            }
-
-            if (await carService.IsRentedByUserWithIdAsync(id, User.Id()) == false)
-            {
-                TempData[Error] = CarReturnError;
-                return Unauthorized();
-            }
-            TempData[Success] = CarReturnSuccess;
-            await carService.ReturnAsync(id);
-
-
-            return RedirectToAction(nameof(All));
-        }
     }
 }

@@ -192,8 +192,8 @@ namespace RentingSystem.Core.Services
 
         public async Task DeleteAsync(int carId)
         {
-           await repository.SoftDeleteAsync<Car>(carId);
-           await repository.SaveChangesAsync();
+            await repository.SoftDeleteAsync<Car>(carId);
+            await repository.SaveChangesAsync();
         }
 
         public async Task EditAsync(int carId, CarFormModel model)
@@ -234,7 +234,7 @@ namespace RentingSystem.Core.Services
                  .Where(c => c.Id == id)
                  .Select(c => new CarFormModel()
                  {
-                     
+
                      Make = c.Make,
                      Model = c.Model,
                      Year = c.Year,
@@ -267,11 +267,11 @@ namespace RentingSystem.Core.Services
 
         public async Task<bool> IsRentedAsync(int carId)
         {
-            bool result = false; 
+            bool result = false;
 
             var car = await repository.GetByIdAsync<Car>(carId);
 
-            if(car != null)
+            if (car != null)
             {
                 result = car.RenterId != null;
             }
@@ -312,34 +312,12 @@ namespace RentingSystem.Core.Services
 
         }
 
-        public async Task ReturnAsync(int carId)
-        {
-            var car = await repository.GetByIdAsync<Car>(carId);
 
-            if (car != null)
-            {
-                car.RenterId = null;
-
-                await repository.SaveChangesAsync();
-            }
-        }
-
-        public async Task RentAsync(int carId, string userId)
-        {
-            var car = await repository.GetByIdAsync<Car>(carId);
-
-            if (car != null)
-            {
-                car.RenterId = userId;
-
-                await repository.SaveChangesAsync();
-            }
-        }
 
         public async Task ApproveCarAsync(int carId)
         {
             var car = await repository.GetByIdAsync<Car>(carId);
-            if(car != null && car.IsApproved == false)
+            if (car != null && car.IsApproved == false)
             {
                 car.IsApproved = true;
                 await repository.SaveChangesAsync();

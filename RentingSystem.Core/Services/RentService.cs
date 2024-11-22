@@ -34,5 +34,29 @@ namespace RentingSystem.Core.Services
                 .ToListAsync();
 
         }
+
+        public async Task ReturnAsync(int carId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.RenterId = null;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task RentAsync(int carId, string userId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+
+            if (car != null)
+            {
+                car.RenterId = userId;
+
+                await repository.SaveChangesAsync();
+            }
+        }
     }
 }
