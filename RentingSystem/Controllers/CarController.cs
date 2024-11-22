@@ -119,6 +119,8 @@ namespace RentingSystem.Controllers
 
             int newCarId = await carService.CreateAsync(entity, dealerId ?? 0);
 
+            TempData[Success] = AddedCarSuccess;
+
             return RedirectToAction(nameof(MyCar));
         }
 
@@ -159,6 +161,8 @@ namespace RentingSystem.Controllers
                 return View(entity);
             }
             await carService.EditAsync(id, entity);
+
+            TempData[Success] = EditCarSuccess;
 
             return RedirectToAction(nameof(Details), new { id, Information = entity.GetInformation() });
         }
@@ -202,6 +206,9 @@ namespace RentingSystem.Controllers
             }
 
            await carService.DeleteAsync(model.Id);
+
+            TempData[Success] = DeleteCarSuccess;
+
 
             return RedirectToAction(nameof(All));
 

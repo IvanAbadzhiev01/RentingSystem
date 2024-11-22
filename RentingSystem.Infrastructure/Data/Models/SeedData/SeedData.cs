@@ -191,7 +191,7 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
                 PricePerDay = 80.00M,
                 CategoryId = Hatchback.Id,
                 DealerId = Dealer.Id,
-                IsApproved = true
+                IsApproved = false
             };
 
             ThirdCar = new Car()
