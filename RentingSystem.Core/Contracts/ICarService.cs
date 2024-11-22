@@ -46,5 +46,9 @@ namespace RentingSystem.Core.Contracts
         Task RentAsync(int carId, string userId);
 
         Task ReturnAsync(int carId);
+
+        Task ApproveCarAsync(int carId);
+
+        Task<IEnumerable<CarServiceModel>> GetUnApproveCarAsync();
     }
 }

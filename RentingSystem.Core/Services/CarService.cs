@@ -335,5 +335,33 @@ namespace RentingSystem.Core.Services
                 await repository.SaveChangesAsync();
             }
         }
+
+        public async Task ApproveCarAsync(int carId)
+        {
+            var car = await repository.GetByIdAsync<Car>(carId);
+            if(car != null && car.IsApproved == false)
+            {
+                car.IsApproved = true;
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<CarServiceModel>> GetUnApproveCarAsync()
+        {
+            return await repository
+                .AllReadOnly<Car>()
+                .Where(c => c.IsApproved == false && c.IsDeleted == false)
+                .Select(c => new CarServiceModel()
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Model = c.Model,
+                    Year = c.Year,
+                    ImageUrl = c.ImageUrl,
+                    PricePerDay = c.PricePerDay,
+                    IsRented = c.RenterId != null
+                })
+                .ToListAsync();
+        }
     }
 }

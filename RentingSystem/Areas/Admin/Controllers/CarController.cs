@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Admin;
+using RentingSystem.Core.Models.Car;
 using System.Security.Claims;
 
 namespace RentingSystem.Areas.Admin.Controllers
@@ -19,7 +20,7 @@ namespace RentingSystem.Areas.Admin.Controllers
             carService = _carService;
             dealerService = _dealerService;
         }
-        
+
         public async Task<IActionResult> MyCar()
         {
             var userId = User.Id();
@@ -33,6 +34,23 @@ namespace RentingSystem.Areas.Admin.Controllers
             };
 
             return View(myCars);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Approve()
+        {
+            var model = await carService.GetUnApproveCarAsync();
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(int carId)
+        {
+            await carService.ApproveCarAsync(carId);
+
+            return RedirectToAction(nameof(Approve));
         }
     }
 }

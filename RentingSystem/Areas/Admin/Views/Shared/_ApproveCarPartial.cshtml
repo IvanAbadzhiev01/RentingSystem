@@ -1,0 +1,22 @@
+﻿@model CarServiceModel
+@inject IDealerService dealerService
+@inject ICarService carService
+<div class="col-md-4">
+    <div class="card mb-3 bg-warning">
+        <img class="card-img-top" src="@Model.ImageUrl" alt="Car Image">
+        <div class="card-body text-center">
+            <h4>@Model.Make @Model.Model</h4>
+            <h6>Year: <b>@Model.Year</b></h6>
+            <h6>
+                Price Per Day:
+                <b>@String.Format("{0:f2}", Model.PricePerDay) BGN</b>
+            </h6>
+            
+            <br />
+            <form class="input-group-sm" asp-controller="Car"
+                  asp-area="Admin" asp-action="Approve" asp-route-carId="@Model.Id" method="post">
+                <input class="btn btn-success" type="submit" value="Approve" />
+            </form>
+        </div>
+    </div>
+</div>
