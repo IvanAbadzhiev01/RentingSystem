@@ -107,5 +107,25 @@ namespace RentingSystem.Core.Services
 
 
         }
+
+        public async Task<IEnumerable<RentHistoryViewModel>> GetRentHistoryAsync(string userId)
+        {
+            var rents = await repository
+            .AllReadOnly<Rent>()
+            .Where(r => r.UserId == userId)
+            .Select(r => new RentHistoryViewModel
+            {
+                RentId = r.Id,
+                CarTitle = r.Car.Title,
+                ImageUrl = r.Car.ImageUrl,
+                RentStartDate = r.RentDate,
+                RentEndDate = r.ReturnDate,
+                TotalPrice = (r.ReturnDate - r.RentDate).Days * r.Car.PricePerDay
+                
+            }).OrderByDescending(r => r.RentId)
+            .ToListAsync();
+
+            return rents;
+        }
     }
 }

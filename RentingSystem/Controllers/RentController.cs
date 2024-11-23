@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentingSystem.Areas.Admin.Controllers;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Rent;
@@ -73,8 +74,19 @@ namespace RentingSystem.Controllers
             return RedirectToAction("All", "Car");
         }
 
+        public async Task<IActionResult> History()
+        {
+            if (await dealerService.ExistsByIdAsync(User.Id()))
+            {
+                return RedirectToAction("All", "Car");
+            }
+
+            var rents = await rentService.GetRentHistoryAsync(User.Id());
+
+            return View(rents);
+        }
 
 
-       
+
     }
 }

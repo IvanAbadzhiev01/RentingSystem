@@ -14,5 +14,7 @@ namespace RentingSystem.Core.Contracts
         Task<RentViewModel> GetCarForRentAsync(int carId);
 
         Task CreateRentAsync(int carId, int days, string userId);
+
+        Task<IEnumerable<RentHistoryViewModel>> GetRentHistoryAsync(string userId);
     }
 }

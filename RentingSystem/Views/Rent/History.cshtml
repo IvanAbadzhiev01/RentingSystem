@@ -1,0 +1,41 @@
+﻿@model IEnumerable<RentHistoryViewModel>
+
+<h2>Your Rent History</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Rental Period</th>
+            <th>Total Price</th>
+            @* <th>Actions</th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rent in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@rent.ImageUrl" alt="Car Image" style="width:100px;" />
+                    @rent.CarTitle
+                </td>
+                <td>
+                    @rent.RentStartDate.ToShortDateString() - @rent.RentEndDate.ToShortDateString()
+                </td>
+                <td>
+                    @rent.TotalPrice BGN
+                </td>
+                @* <td>
+                    @if (!rent.IsReviewed)
+                    {
+                        <a href="@Url.Action("AddReview", "Review", new { rentId = rent.RentId })" class="btn btn-primary">Leave Review</a>
+                    }
+                    else
+                    {
+                        <span class="text-success">Reviewed</span>
+                    } 
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
