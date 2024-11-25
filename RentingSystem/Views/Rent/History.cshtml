@@ -1,48 +1,52 @@
 ﻿@model IEnumerable<RentHistoryViewModel>
-﻿@{
+
+@{
     ViewData["Title"] = "Rent History";
 }
 
-<h2>Your Rent History</h2>
+<div class="container py-5">
+    <h2 class="text-center mb-4">Your Rent History</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Car</th>
-            <th>Rental Period</th>
-            <th>Total Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var rent in Model)
-        {
-            <tr>
-                <td>
-                    <img src="@rent.ImageUrl" alt="Car Image" style="width:100px;" />
-                    @rent.CarTitle
-                </td>
-                <td>
-                    @rent.RentStartDate.ToShortDateString() - @rent.RentEndDate.ToShortDateString()
-                </td>
-                <td>
-                    @rent.TotalPrice BGN
-                </td>
-                <td>
-                    @if (!rent.IsReviewed)
-                    {
-                        if (rent.IsReturned)
-                        {
-                            <a class="btn btn-primary text-white" asp-area="" asp-controller="Review" asp-action="Create" asp-route-carId="@rent.CarId">leave review</a>
-                        }
-
-                    }
-                    else
-                    {
-                        <a class="text-success text-white">reviewed</a>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th>Car</th>
+                    <th>Rental Period</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rent in Model)
+                {
+                    <tr>
+                        <td class="d-flex align-items-center">
+                            <img src="@rent.ImageUrl" alt="Car Image" class="img-fluid" style="max-width: 100px; margin-right: 15px;" />
+                            <span>@rent.CarTitle</span>
+                        </td>
+                        <td>
+                            @rent.RentStartDate.ToShortDateString() - @rent.RentEndDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @rent.TotalPrice BGN
+                        </td>
+                        <td>
+                            @if (!rent.IsReviewed)
+                            {
+                                if (rent.IsReturned)
+                                {
+                                    <a class="btn btn-primary btn-sm" asp-area="" asp-controller="Review" asp-action="Create" asp-route-carId="@rent.CarId">Leave Review</a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="badge bg-success text-white">Reviewed</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

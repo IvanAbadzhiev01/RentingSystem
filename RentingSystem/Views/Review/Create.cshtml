@@ -1,33 +1,33 @@
-﻿
-@model ReviewViewModel
-﻿@{
+﻿@model ReviewViewModel
+
+@{
     ViewData["Title"] = "Review";
 }
 
-<h2>Leave a Review</h2>
+<div class="container py-5">
+    <h2 class="text-center mb-4">Leave a Review</h2>
 
-<form asp-action="Create" method="post">
-   
-    <input type="hidden" asp-for="UserFullName" value="@User.FindFirstValue(RentingSystem.Infrastructure.Constants.CustomClaims.UserFullName)" />
-    
-    <input type="hidden" asp-for="CarId" />
-     
-    <div class="form-group">
-        <label asp-for="Rating" class="control-label">Rating (1-5)</label>
-        <input asp-for="Rating" class="form-control" type="number" min="1" max="5" required />
-        <span asp-validation-for="Rating" class="text-danger"></span>
-    </div>
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="UserFullName" value="@User.FindFirstValue(RentingSystem.Infrastructure.Constants.CustomClaims.UserFullName)" />
+        <input type="hidden" asp-for="CarId" />
 
-    <div class="form-group">
-        <label asp-for="Comment" class="control-label">Your Comment</label>
-        <textarea asp-for="Comment" class="form-control" rows="4" required></textarea>
-        <span asp-validation-for="Comment" class="text-danger"></span>
-    </div>
+        <div class="form-group mb-4">
+            <label asp-for="Rating" class="form-label">Rating (1-5)</label>
+            <input asp-for="Rating" class="form-control form-control-lg" type="number" min="1" max="5" required />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit Review</button>
-</form>
+        <div class="form-group mb-4">
+            <label asp-for="Comment" class="form-label">Your Comment</label>
+            <textarea asp-for="Comment" class="form-control form-control-lg" rows="4" placeholder="Share your experience..." required></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
 
-
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5">Submit Review</button>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
     @{
