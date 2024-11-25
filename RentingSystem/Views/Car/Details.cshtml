@@ -43,22 +43,16 @@
                            class="btn btn-danger">Delete</a>
                     }
                     @if (!Model.IsRented && (await dealerService.ExistsByIdAsync(User.Id())) == false
-                    || User.IsAdmin())
+                   || User.IsAdmin())
                     {
                         <a asp-controller="Review" asp-action="Reviews" asp-route-carId="@Model.Id"
                            class="btn btn-success">Review</a>
-                        <form class="input-group-sm" asp-controller="Car"
-                              asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary bg-light" type="submit" value="Rent" />
+                        <form class="input-group-sm" asp-controller="Rent"
+                              asp-area="" asp-action="Rent" asp-route-id="@Model.Id" method="get">
+                            <input class="btn btn-primary" type="submit" value="Rent" />
                         </form>
                     }
-                    else if (await carService.IsRentedByUserWithIdAsync(Model.Id, User.Id()))
-                    {
-                        <form asp-controller="Car" asp-action="Return"
-                              asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary bg-light" type="submit" value="Return" />
-                        </form>
-                    }
+
                 }
             </div>
             <p></p>
@@ -67,7 +61,7 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Dealer Info</h5>
-                         <p class="card-text"><b>Name:</b>  @Model.Dealer.FullName</p>
+                        <p class="card-text"><b>Name:</b>  @Model.Dealer.FullName</p>
                         <p class="card-text"><b>Email:</b>  @Model.Dealer.Email</p>
                         <p class="card-text"><b>Phone Number:</b> @Model.Dealer.PhoneNumber</p>
                     </div>

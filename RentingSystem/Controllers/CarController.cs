@@ -121,7 +121,7 @@ namespace RentingSystem.Controllers
 
             TempData[Success] = AddedCarSuccess;
 
-            return RedirectToAction(nameof(MyCar));
+            return RedirectToAction(nameof(All));
         }
 
         [HttpGet]
