@@ -403,7 +403,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("RenterId");
 
-                    b.ToTable("Cars", t =>
+                    b.ToTable("Cars", null, t =>
                         {
                             t.HasComment("Car table");
                         });
@@ -483,7 +483,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", t =>
+                    b.ToTable("Categories", null, t =>
                         {
                             t.HasComment("Category of the car");
                         });
@@ -554,7 +554,7 @@ namespace RentingSystem.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Dealers", t =>
+                    b.ToTable("Dealers", null, t =>
                         {
                             t.HasComment("Dealer of the car");
                         });
@@ -614,7 +614,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Rents", t =>
+                    b.ToTable("Rents", null, t =>
                         {
                             t.HasComment("Renting of the product");
                         });
@@ -652,7 +652,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", t =>
+                    b.ToTable("Reviews", null, t =>
                         {
                             t.HasComment("Review of the rent");
                         });

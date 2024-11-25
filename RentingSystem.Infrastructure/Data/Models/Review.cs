@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using static RentingSystem.Infrastructure.Constants.DataConstants;
 namespace RentingSystem.Infrastructure.Data.Models
 {
     [Comment("Review of the rent")]
@@ -31,7 +31,9 @@ namespace RentingSystem.Infrastructure.Data.Models
         [Comment("Rating of the rent")]
         public int Rating { get; set; }
 
+        [Required]    
         [Comment("Comment of the rent")]
-        public string? Comment { get; set; }
+        [MaxLength(ReviewCommentMaxLength)]
+        public string Comment { get; set; } = null!;
     }
 }

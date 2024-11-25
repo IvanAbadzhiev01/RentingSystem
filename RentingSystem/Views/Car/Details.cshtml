@@ -40,6 +40,8 @@
                     @if (!Model.IsRented && (await dealerService.ExistsByIdAsync(User.Id())) == false
                     || User.IsAdmin())
                     {
+                        <a asp-controller="Review" asp-action="Reviews" asp-route-carId="@Model.Id"
+                           class="btn btn-success">Review</a>
                         <form class="input-group-sm" asp-controller="Car"
                               asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary bg-light" type="submit" value="Rent" />

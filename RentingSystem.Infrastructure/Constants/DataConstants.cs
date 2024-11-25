@@ -60,5 +60,6 @@
         public const int ReviewScoreMaxValue = 5;
         public const int ReviewScoreMinValue = 1;
         public const int ReviewCommentMaxLength = 500;
+        public const int ReviewCommentMinLength = 10;
     }
 }

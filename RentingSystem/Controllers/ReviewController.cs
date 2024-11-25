@@ -33,9 +33,17 @@ namespace RentingSystem.Controllers
 
             if (ModelState.IsValid)
             {
-                await reviewService.AddReview(model, User.Id());
+                await reviewService.AddReviewAsync(model, User.Id());
                 return RedirectToAction("All", "Car");
             }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Reviews(int carId)
+        {
+            var model = await reviewService.AllReviewByCarIdAsync(carId);
 
             return View(model);
         }

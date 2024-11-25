@@ -4,6 +4,7 @@ namespace RentingSystem.Core.Contracts
 {
     public interface IReviewService
     {
-        Task AddReview(ReviewViewModel model, string userId);
+        Task AddReviewAsync(ReviewViewModel model, string userId);
+        Task<CarReviewsViewModel> AllReviewByCarIdAsync(int carId);
     }
 }

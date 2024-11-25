@@ -5,6 +5,8 @@ namespace RentingSystem.Core.Models.Review
 {
     public class ReviewViewModel
     {
+
+        public string UserFullName { get; set; } = null!;
         public int CarId { get; set; }
 
         [Required(ErrorMessage = ReqiredFildError)]
@@ -12,7 +14,7 @@ namespace RentingSystem.Core.Models.Review
         public int Rating { get; set; }
 
         [Required(ErrorMessage = ReqiredFildError)]
-        [StringLength(ReviewCommentMaxLength)]
+        [StringLength(ReviewCommentMaxLength, MinimumLength = ReviewCommentMinLength, ErrorMessage = StringLengthError)]
         public string Comment { get; set; } = null!;
     }
 }
