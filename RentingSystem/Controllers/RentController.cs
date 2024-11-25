@@ -76,7 +76,7 @@ namespace RentingSystem.Controllers
 
         public async Task<IActionResult> History()
         {
-            if (await dealerService.ExistsByIdAsync(User.Id()))
+            if (await dealerService.ExistsByIdAsync(User.Id()) && User.IsAdmin() == false)
             {
                 return RedirectToAction("All", "Car");
             }

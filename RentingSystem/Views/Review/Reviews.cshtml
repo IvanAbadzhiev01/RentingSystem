@@ -1,4 +1,7 @@
 ﻿@model CarReviewsViewModel
+﻿@{
+    ViewData["Title"] = "Reviews";
+}
 
 <div class="container mt-4">
     <h2 class="text-light mb-4">Reviews for @Model.Car.Title</h2>
@@ -27,8 +30,8 @@
     }
     else
     {
-        <div class="alert alert-light text-center">
-            <p>No reviews yet. Be the first to share your experience!</p>
+        <div class="alert alert-light text-center bg-primary text-white">
+            <p><b>No reviews yet. Be the first to share your experience!</b></p>
         </div>
     }
 </div>

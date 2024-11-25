@@ -32,6 +32,11 @@
                     if (await carService.HasDealerWithIdAsync(Model.Id, User.Id())
                     || User.IsAdmin())
                     {
+                        if (await carService.HasDealerWithIdAsync(Model.Id, User.Id()) && User.IsAdmin() == false)
+                        {
+                            <a asp-controller="Review" asp-action="Reviews" asp-route-carId="@Model.Id"
+                               class="btn btn-success">Review</a>
+                        }
                         <a asp-controller="Car" asp-action="Edit" asp-route-id="@Model.Id"
                            class="btn btn-warning">Edit</a>
                         <a asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
