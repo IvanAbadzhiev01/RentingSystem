@@ -67,7 +67,7 @@ namespace RentingSystem.Core.Services
 
             DateTime now = DateTime.Now;
             var allRentedCars = await repository.All<Rent>()
-                .Where(c =>  c.ReturnDate < now && c.IsReturned == false)
+                .Where(c => c.ReturnDate < now && c.IsReturned == false)
                 .ToListAsync();
             if (allRentedCars.Any())
             {
@@ -355,6 +355,20 @@ namespace RentingSystem.Core.Services
                     IsRented = c.RenterId != null
                 })
                 .ToListAsync();
+        }
+
+        public async Task<double> GetAverageRatingAsync(int carId)
+        {
+            var reviews = await repository.AllReadOnly<Review>()
+                                  .Where(r => r.CarId == carId)
+                                  .ToListAsync();
+
+            if (!reviews.Any())
+            {
+                return 0.00;
+            }
+
+            return reviews.Average(r => r.Rating);
         }
     }
 }

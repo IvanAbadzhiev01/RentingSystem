@@ -47,5 +47,6 @@ namespace RentingSystem.Core.Contracts
         Task ApproveCarAsync(int carId);
 
         Task<IEnumerable<CarServiceModel>> GetUnApproveCarAsync();
+        Task<double> GetAverageRatingAsync(int carId);
     }
 }

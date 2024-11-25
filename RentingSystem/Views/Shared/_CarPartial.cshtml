@@ -1,9 +1,16 @@
 ﻿@model CarServiceModel
 @inject IDealerService dealerService
 @inject ICarService carService
+
 <div class="col-md-4">
-    <div class="card mb-3">
+    <div class="card mb-3" data-car-id="@Model.Id">
         <img class="card-img-top" src="@Model.ImageUrl" alt="Car Image">
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <span class="badge bg-warning text-dark position-absolute" style="top: 10px; left: 10px; padding: 5px 10px;">
+                Loading...
+            </span>
+        }
         <div class="card-body text-center">
             <h4>@Model.Make @Model.Model</h4>
             <h6>Year: <b>@Model.Year</b></h6>
@@ -14,9 +21,9 @@
             <h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>
             <br />
             <a asp-area="" asp-controller="Car" asp-action="Details" asp-route-id="@Model.Id"
-            asp-route-information="@Model.GetInformation()"
+               asp-route-information="@Model.GetInformation()"
                class="btn btn-success">Details</a>
-             @if (this.User.Identity.IsAuthenticated)
+            @if (this.User.Identity.IsAuthenticated)
             {
                 if (await carService.HasDealerWithIdAsync(Model.Id, User.Id())
                 || User.IsAdmin())
@@ -26,7 +33,7 @@
                     <a asp-area="" asp-controller="Car" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn btn-danger">Delete</a>
                 }
-                
+
                 <p></p>
                 @if (!Model.IsRented && ((await dealerService.ExistsByIdAsync(User.Id())) == false || User.IsAdmin()))
                 {
@@ -35,8 +42,9 @@
                         <input class="btn btn-primary" type="submit" value="Rent" />
                     </form>
                 }
-               
             }
         </div>
     </div>
 </div>
+
+<script src="~/js/car-rating.js"></script>
