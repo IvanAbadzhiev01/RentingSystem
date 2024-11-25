@@ -71,5 +71,13 @@ namespace RentingSystem.Core.Services
 
             return model;
         }
+
+        public async Task<bool> RentExistsAsync(int carId, string userId)
+        {
+            var rent = await repository.All<Rent>()
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.CarId == carId && r.ReturnDate <= DateTime.Now && r.IsReview == false);
+
+            return rent != null;
+        }
     }
 }

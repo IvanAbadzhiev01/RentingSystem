@@ -8,17 +8,20 @@ namespace RentingSystem.Controllers
     public class ReviewController : BaseController
     {
         private readonly IReviewService reviewService;
-
-        public ReviewController(IReviewService _reviewService)
+        private readonly ICarService carService;
+        public ReviewController(
+            IReviewService _reviewService,
+            ICarService _carService)
         {
             reviewService = _reviewService;
+            carService = _carService;
         }
 
-       
+
         [HttpGet]
         public IActionResult Create(int carId)
         {
-            var model =  new ReviewViewModel()
+            var model = new ReviewViewModel()
             {
                 CarId = carId
             };
@@ -29,7 +32,14 @@ namespace RentingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(int carId, ReviewViewModel model)
         {
-           
+            if (await carService.ExistsAsync(carId) == false)
+            {
+                return BadRequest();
+            }
+            if(await reviewService.RentExistsAsync(carId, User.Id()) == false)
+            {
+                return BadRequest();
+            }
 
             if (ModelState.IsValid)
             {
