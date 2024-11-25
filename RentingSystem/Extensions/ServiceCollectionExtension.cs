@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IDealerService, DealerService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRentService, RentService>();
+            services.AddScoped<IReviewService, ReviewService>();
             return services;
         }
 

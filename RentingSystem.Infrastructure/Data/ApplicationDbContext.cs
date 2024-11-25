@@ -16,7 +16,7 @@ namespace RentingSystem.Infrasturcture.Data
 
         public DbSet<Car> Cars { get; set; } = null!;
         public DbSet<Rent> Rents { get; set; } = null!;
-        public DbSet<Review> Rewiews { get; set; } = null!;
+        public DbSet<Review> Reviews { get; set; } = null!;
         public DbSet<Dealer> Dealers { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
 

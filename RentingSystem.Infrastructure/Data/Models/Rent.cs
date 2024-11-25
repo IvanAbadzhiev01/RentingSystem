@@ -39,5 +39,9 @@ namespace RentingSystem.Infrastructure.Data.Models
         [Required]
         [Comment("Is the car return or not")]
         public bool IsReturned { get; set; } = false;
+
+        [Required]
+        [Comment("Is the car reviewed or not")]
+        public bool IsReview { get; set; } = false;
     }
 }

@@ -55,5 +55,10 @@
         public const int ApplicationUserFirstNameMaxLength = 50;
         public const int ApplicationUserLastNameMinLength = 2;
         public const int ApplicationUserLastNameMaxLength = 50;
+
+        //Review
+        public const int ReviewScoreMaxValue = 5;
+        public const int ReviewScoreMinValue = 1;
+        public const int ReviewCommentMaxLength = 500;
     }
 }

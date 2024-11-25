@@ -120,8 +120,11 @@ namespace RentingSystem.Core.Services
                 ImageUrl = r.Car.ImageUrl,
                 RentStartDate = r.RentDate,
                 RentEndDate = r.ReturnDate,
-                TotalPrice = (r.ReturnDate - r.RentDate).Days * r.Car.PricePerDay
-                
+                TotalPrice = (r.ReturnDate - r.RentDate).Days * r.Car.PricePerDay,
+                CarId = r.CarId,
+                IsReturned = r.IsReturned,
+                IsReviewed = r.IsReview
+
             }).OrderByDescending(r => r.RentId)
             .ToListAsync();
 

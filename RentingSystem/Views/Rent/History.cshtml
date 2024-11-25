@@ -8,7 +8,7 @@
             <th>Car</th>
             <th>Rental Period</th>
             <th>Total Price</th>
-            @* <th>Actions</th> *@
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -25,16 +25,20 @@
                 <td>
                     @rent.TotalPrice BGN
                 </td>
-                @* <td>
+                <td>
                     @if (!rent.IsReviewed)
                     {
-                        <a href="@Url.Action("AddReview", "Review", new { rentId = rent.RentId })" class="btn btn-primary">Leave Review</a>
+                        if (rent.IsReturned)
+                        {
+                            <a class="btn btn-primary text-white" asp-area="" asp-controller="Review" asp-action="Create" asp-route-carId="@rent.CarId">leave review</a>
+                        }
+
                     }
                     else
                     {
-                        <span class="text-success">Reviewed</span>
-                    } 
-                </td>*@
+                        <a class="text-success text-white">reviewed</a>
+                    }
+                </td>
             </tr>
         }
     </tbody>
