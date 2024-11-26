@@ -1,0 +1,33 @@
+﻿<link rel="stylesheet" href="~/css/liveChatStyle.css" />
+@model string
+@{
+    ViewData["Title"] = "Live Chat";
+}
+    <h1 class="text-center">Live Chat</h1>
+<div class="chat-container">
+
+    <div class="messages-box">
+        <ul id="messagesList" class="messages-list">
+            
+        </ul>
+    </div>
+
+  
+    <div class="input-box">
+        <div class="input-field">
+            <label for="userInput"></label>
+            <input type="hidden" " id="userInput" class="form-control"
+                   value="@Model" />
+        </div>
+        <div class="input-field">
+            <label for="messageInput">Message</label>
+            <input type="text" id="messageInput" class="form-control" placeholder="Type a message" />
+        </div>
+        <div>
+            <input type="button" id="sendButton" class="btn btn-primary" value="Send Message" />
+        </div>
+    </div>
+</div>
+
+<script src="/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="/js/chat.js"></script>

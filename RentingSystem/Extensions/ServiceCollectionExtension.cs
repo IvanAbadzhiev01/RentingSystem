@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Services;
@@ -18,6 +19,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRentService, RentService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddSignalR();
+           
+
             return services;
         }
 

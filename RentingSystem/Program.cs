@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RentingSystem.Hubs;
 using RentingSystem.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,7 @@ app.MapControllerRoute(
           name: "areas",
           pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
   );
+app.MapHub<ChatHub>("/chathub");
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
