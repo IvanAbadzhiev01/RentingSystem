@@ -16,7 +16,7 @@ namespace RentingSystem.Tests.Services
         private UserService userService;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             var opt = new DbContextOptionsBuilder<ApplicationDbContext>()
                  .UseInMemoryDatabase(databaseName: "RentingSystemTestDb")
@@ -26,7 +26,7 @@ namespace RentingSystem.Tests.Services
             repository = new Repository(dbContext);
             userService = new UserService(repository);
 
-            SeedDatabaseAsync();
+           await SeedDatabaseAsync();
         }
 
         [TearDown]
