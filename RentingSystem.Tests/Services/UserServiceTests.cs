@@ -26,7 +26,7 @@ namespace RentingSystem.Tests.Services
             repository = new Repository(dbContext);
             userService = new UserService(repository);
 
-            SeedDatabase();
+            SeedDatabaseAsync();
         }
 
         [TearDown]
@@ -69,30 +69,38 @@ namespace RentingSystem.Tests.Services
 
             Assert.That(string.Empty, Is.EqualTo(fullName));
         }
-        private void SeedDatabase()
+        private async Task SeedDatabaseAsync()
         {
+            
             var users = new List<ApplicationUser>
-            {
-                new ApplicationUser
-                {
-                    Id = "1",
-                    FirstName = "Ivan",
-                    LastName = "Ivanov",
-                    Email = "ivan@example.com",
-                    Dealer = new Dealer { PhoneNumber = "1234567890" }
-                },
-                new ApplicationUser
-                {
-                    Id = "2",
-                    FirstName = "Petar",
-                    LastName = "Petrov",
-                    Email = "petar@example.com",
-                    Dealer = null
-                }
-            };
-
-            dbContext.Users.AddRange(users);
-            dbContext.SaveChanges();
+    {
+        new ApplicationUser
+        {
+            Id = "1",
+            FirstName = "Ivan",
+            LastName = "Ivanov",
+            Email = "ivan@example.com",
+            Dealer = new Dealer { PhoneNumber = "1234567890" }
+        },
+        new ApplicationUser
+        {
+            Id = "2",
+            FirstName = "Petar",
+            LastName = "Petrov",
+            Email = "petar@example.com",
+            Dealer = null
         }
+    };
+
+           
+            foreach (var user in users)
+            {
+                await repository.AddAsync(user);
+            }
+
+            
+            await repository.SaveChangesAsync();
+        }
+
     }
 }
