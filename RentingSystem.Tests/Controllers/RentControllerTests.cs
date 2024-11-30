@@ -1,0 +1,4 @@
+﻿namespace RentingSystem.Tests.Controllers
+{
+
+}

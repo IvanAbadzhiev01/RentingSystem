@@ -19,7 +19,7 @@ namespace RentingSystem.Controllers
         {
             var averageRating = await _carService.GetAverageRatingAsync(carId);
 
-            if (averageRating == null)
+            if (averageRating == 0)
             {
                 return NotFound();
             }
