@@ -1,34 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NUnit.Framework;
 using RentingSystem.Controllers;
 using RentingSystem.Core.Contracts;
+using System.Threading.Tasks;
 
 namespace RentingSystem.Tests.Controllers
 {
-
-
     [TestFixture]
     public class ReviewApiControllerTests
     {
-        private Mock<ICarService> _mockCarService;
+        private Mock<ICarService> _carServiceMock;
         private ReviewApiController _controller;
 
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            _mockCarService = new Mock<ICarService>();
-            _controller = new ReviewApiController(_mockCarService.Object);
-        }
-
-        [Test]
-        public async Task GetAverageRating_ReturnsNotFound_WhenNoRatingExists()
-        {
-            var carId = 1;
-            _mockCarService.Setup(service => service.GetAverageRatingAsync(carId)).ReturnsAsync(0);
-
-            var result = await _controller.GetAverageRating(carId);
-
-            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+            _carServiceMock = new Mock<ICarService>();
+            _controller = new ReviewApiController(_carServiceMock.Object);
         }
 
         [TearDown]
@@ -36,6 +25,29 @@ namespace RentingSystem.Tests.Controllers
         {
             _controller.Dispose();
         }
-    }
 
+        [Test]
+        public async Task GetAverageRating_ShouldReturnOkWithAverageRating()
+        {
+            var carId = 1;
+            var averageRating = 4.5;
+
+            _carServiceMock
+                .Setup(cs => cs.GetAverageRatingAsync(carId))
+                .ReturnsAsync(averageRating);
+
+            var result = await _controller.GetAverageRating(carId);
+
+            Assert.That(result, Is.TypeOf<OkObjectResult>());
+
+            var okResult = result as OkObjectResult;
+            Assert.That(okResult, Is.Not.Null, "OkObjectResult is null.");
+            Assert.That(okResult.Value, Is.Not.Null, "The Value in OkObjectResult is null.");
+
+            var data = okResult.Value;
+            Assert.That(data.GetType().GetProperty("averageRating").GetValue(data, null), Is.EqualTo(averageRating));
+        }
+
+
+    }
 }
