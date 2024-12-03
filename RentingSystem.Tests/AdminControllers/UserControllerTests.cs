@@ -28,7 +28,6 @@ namespace RentingSystem.Tests.AdminControllers
         [Test]
         public async Task All_ShouldReturnViewWithUsers()
         {
-            // Arrange
             var users = new List<UserServiceModel>
             {
                 new UserServiceModel { Email = "user1@example.com", FullName = "user1" },
@@ -39,10 +38,8 @@ namespace RentingSystem.Tests.AdminControllers
                 .Setup(us => us.AllAsync())
                 .ReturnsAsync(users);
 
-            // Act
             var result = await _controller.All();
 
-            // Assert
             Assert.That(result, Is.TypeOf<ViewResult>());
             var viewResult = result as ViewResult;
             Assert.That(viewResult.Model, Is.EqualTo(users));
@@ -51,10 +48,8 @@ namespace RentingSystem.Tests.AdminControllers
         [Test]
         public async Task All_ShouldCallUserServiceAllAsyncOnce()
         {
-            // Act
             await _controller.All();
 
-            // Assert
             _userServiceMock.Verify(us => us.AllAsync(), Times.Once);
         }
     }
