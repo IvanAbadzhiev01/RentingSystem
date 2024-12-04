@@ -272,7 +272,7 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             {
                 Id = 2,
                 UserId = GuestUser.Id,
-                CarId = SecondCar.Id,
+                CarId = ThirdCar.Id,
                 RentDate = DateTime.Now.AddDays(-5),
                 ReturnDate = DateTime.Now.AddDays(-1),
                 IsReturned = true,
@@ -282,9 +282,9 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             {
                 Id = 3,
                 UserId = GuestUser.Id,
-                CarId = SecondCar.Id,
-                RentDate = DateTime.Now.AddDays(-5),
-                ReturnDate = DateTime.Now.AddDays(-1),
+                CarId = ThirdCar.Id,
+                RentDate = DateTime.Now.AddDays(-10),
+                ReturnDate = DateTime.Now.AddDays(-8),
                 IsReturned = true,
                 IsReview = true,
             };
@@ -296,7 +296,7 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             {
                 Id = 1,
                 UserId = GuestUser.Id,
-                CarId = SecondCar.Id,
+                CarId = ThirdCar.Id,
                 Rating = 5,
                 Comment = "Great car, very comfortable and smooth ride."
             };
@@ -305,7 +305,7 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             {
                 Id = 2,
                 UserId = GuestUser.Id,
-                CarId = SecondCar.Id,
+                CarId = ThirdCar.Id,
                 Rating = 4,
                 Comment = "Good car, but could be better."
             };
