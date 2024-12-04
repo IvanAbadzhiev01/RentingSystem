@@ -6,13 +6,13 @@ Welcome to the **RentingSystem** project! It is a car rental web application wit
 
 ## 🌐 **Navigation** 🗺️
 
-- [👤 What users can do](#what-users-can-do)
-- [💼 What the dealer can do](#what-the-dealer-can-do)
+- [👤 What users can do](#-what-users-can-do)
+- [💼 What the dealer can do](#-what-the-dealer-can-do)
 - [⚙️ What the admin can do](#%EF%B8%8F-what-the-admin-can-do)
-- [🛠️ Technologies](#technologies)
-- [🔑 Login Data](#login-data)
-- [⚙️ SetUp](#setup)
-- [📸 Screenshots](#screenshots)
+- [🛠️ Technologies](#%EF%B8%8F-technologies)
+- [🔑 Login Data](#-login-details)
+- [⚙️ SetUp](#%EF%B8%8F-setup)
+- [📸 Screenshots](#-screenshots)
 
 ---
 
