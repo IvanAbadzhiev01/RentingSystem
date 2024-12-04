@@ -4,16 +4,12 @@ Welcome to the RentingSystem project! It is a car rental web application with di
 
 ## Navigation
 
-- [Screenshots](#screenshots)
 - [What users can do](#what-users-can-do)
 - [What the dealer can do](#what-the-dealer-can-do)
 - [What the admin can do](#what-the-admin-can-do)
 - [Technologies](#technologies)
 - [Login Data](#login-data)
-
-## Screenshots
-
-![Screenshot](./screenshot.png)
+- [Screenshots](#screenshots)
 
 ## What the user can do
 
@@ -67,3 +63,8 @@ The input data is defined in the `SeedData` classes for all roles:
 - **User**:
  - Username: `guest@mail.com`
  - Password: `guest123`
+## Screenshots
+
+**HomePage**
+![Screenshot](![image](https://github.com/user-attachments/assets/078381f1-dba1-4e08-b8cd-2ab9e4b3a559)
+)
