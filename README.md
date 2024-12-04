@@ -9,6 +9,7 @@ Welcome to the RentingSystem project! It is a car rental web application with di
 - [What the admin can do](#what-the-admin-can-do)
 - [Technologies](#technologies)
 - [Login Data](#login-data)
+- [SetUp](#setup)
 - [Screenshots](#screenshots)
 
 ## What the user can do
@@ -63,6 +64,24 @@ The input data is defined in the `SeedData` classes for all roles:
 - **User**:
  - Username: `guest@mail.com`
  - Password: `guest123`
+
+## SetUp
+
+1. **Clone the Project**:
+ - Clone repository from [RentingSystem GitHub](https://github.com/IvanAbadzhiev01/RentingSystem).
+
+2. **MSSQL Database Configuration**:
+ - Make sure you have **MS SQL Server** installed.
+
+3. **Running migrations with the Package Manager Console**:
+ - Open **Package Manager Console** in Visual Studio.
+ - Run the following command to run the migrations and create the database:
+
+ Update-Database
+
+
+After these steps, the project will be ready to work with the configured database.
+
 ## Screenshots
 
 **HomePage**
