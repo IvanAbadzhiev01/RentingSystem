@@ -45,7 +45,6 @@ Welcome to the **RentingSystem** project! It is a car rental web application wit
 - **Approve cars** 🏁.
 - **View all user data**, and determine if they are dealers or not 📊.
 - **See all rental cars** 🚗.
-  
 
 ---
 
@@ -149,7 +148,3 @@ Once completed, the project will be ready with the configured database! 🚀
 
 ### **AllRents**
 ![image](https://github.com/user-attachments/assets/643590ea-5211-4621-a4d9-0331e463edfe)
-
----
-
-🔧 **Ready to start your car rental journey?** 🚗 Go ahead and try out the project! Feel free to contribute and enhance the system. 
