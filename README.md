@@ -20,7 +20,6 @@ Welcome to the **RentingSystem** project! It is a car rental web application wit
 
 - **Browse available cars** 🏎️.
 - **Start the process of renting a car** 🔑.
-- **Reserve cars** for a specific period 🗓️.
 - **Become a dealer** and list cars 🚙.
 - **Leave reviews** ✍️.
 - **View the history** of rented cars 📜.
@@ -58,7 +57,7 @@ The project uses the following technologies:
 - **Bootstrap** (for responsive design) 📱
 - **SignalR** (for real-time communication) ⚡
 - **JavaScript, jQuery** (for dynamic client-side interactions) 💻
-- **nUnit** (for automated testing) ✅
+- **nUnit** (for testing) ✅
 
 ---
 
