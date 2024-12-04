@@ -16,7 +16,7 @@ Welcome to the **RentingSystem** project! It is a car rental web application wit
 
 ---
 
-## 👤 **What the user can do**
+## 👤 **What users can do**
 
 - **Browse available cars** 🏎️.
 - **Start the process of renting a car** 🔑.
