@@ -75,10 +75,7 @@ The input data is defined in the `SeedData` classes for all roles:
 
 3. **Running migrations with the Package Manager Console**:
  - Open **Package Manager Console** in Visual Studio.
- - Run the following command to run the migrations and create the database:
-
- Update-Database
-
+ - Run the following command to run the migrations and create the database: **Update-Database**
 
 After these steps, the project will be ready to work with the configured database.
 
