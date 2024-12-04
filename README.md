@@ -66,5 +66,4 @@ The input data is defined in the `SeedData` classes for all roles:
 ## Screenshots
 
 **HomePage**
-![Screenshot](![image](https://github.com/user-attachments/assets/078381f1-dba1-4e08-b8cd-2ab9e4b3a559)
-)
+(![image](https://github.com/user-attachments/assets/078381f1-dba1-4e08-b8cd-2ab9e4b3a559))
