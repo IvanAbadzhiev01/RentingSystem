@@ -34,6 +34,18 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
 
         public Car ThirdCar { get; set; }
 
+        public Rent FirstRent { get; set; }
+        
+        public Rent SecondRent { get; set; }
+        
+        public Rent ThirdRent { get; set; }
+        
+        public Review FirstReview { get; set; }
+        
+        public Review SecondReview { get; set; }
+
+
+
         public List<IdentityUserClaim<string>> Claims { get; private set; }
         public SeedData()
         {
@@ -42,6 +54,8 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
             SeedCategories();
             SeedCars();
             SeedClaims();
+            SeedRent();
+            SeedReviews();
         }
 
         private void SeedUsers()
@@ -238,6 +252,62 @@ namespace RentingSystem.Infrastructure.Data.Models.SeedData
                     ClaimType = UserFullName,
                     ClaimValue = $"{GuestUser.FirstName} {GuestUser.LastName}"
                 }
+            };
+        }
+
+        private void SeedRent()
+        {
+            FirstRent = new Rent()
+            {
+                Id = 1,
+                UserId = GuestUser.Id,
+                CarId = FirstCar.Id,
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now.AddDays(3),
+                IsReturned = false,
+                IsReview = false,
+            };
+
+            SecondRent = new Rent()
+            {
+                Id = 2,
+                UserId = GuestUser.Id,
+                CarId = SecondCar.Id,
+                RentDate = DateTime.Now.AddDays(-5),
+                ReturnDate = DateTime.Now.AddDays(-1),
+                IsReturned = true,
+                IsReview = true,
+            };
+            ThirdRent = new Rent()
+            {
+                Id = 3,
+                UserId = GuestUser.Id,
+                CarId = SecondCar.Id,
+                RentDate = DateTime.Now.AddDays(-5),
+                ReturnDate = DateTime.Now.AddDays(-1),
+                IsReturned = true,
+                IsReview = true,
+            };
+        }
+
+        private void SeedReviews()
+        {
+            FirstReview = new Review()
+            {
+                Id = 1,
+                UserId = GuestUser.Id,
+                CarId = SecondCar.Id,
+                Rating = 5,
+                Comment = "Great car, very comfortable and smooth ride."
+            };
+
+            SecondReview = new Review()
+            {
+                Id = 2,
+                UserId = GuestUser.Id,
+                CarId = SecondCar.Id,
+                Rating = 4,
+                Comment = "Good car, but could be better."
             };
         }
 

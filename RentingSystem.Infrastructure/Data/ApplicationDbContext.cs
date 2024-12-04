@@ -40,6 +40,8 @@ namespace RentingSystem.Infrasturcture.Data
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CarConfiguration());
             builder.ApplyConfiguration(new UserClaimConfiguration());
+            builder.ApplyConfiguration(new RentConfiguration());
+            builder.ApplyConfiguration(new ReviewConfiguration());
 
             base.OnModelCreating(builder);
         }
