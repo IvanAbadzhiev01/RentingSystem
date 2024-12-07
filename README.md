@@ -2,9 +2,6 @@
 
 Welcome to the **RentingSystem** project! It is a car rental web application with different roles and functionalities. Below you'll find detailed information about the system's structure, features, and technologies used.
 
-## 🚀 Live demo
-See the live application here: [RentingSystem Demo](https://rentingsystem20241207134018.azurewebsites.net/)
-
 ---
 
 ## 🌐 **Navigation** 🗺️
