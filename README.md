@@ -15,6 +15,7 @@ See the live application here: [RentingSystem Demo](https://rentingsystem2024120
 - [🛠️ Technologies](#%EF%B8%8F-technologies)
 - [🔑 Login Data](#-login-details)
 - [⚙️ SetUp](#%EF%B8%8F-setup)
+- [💰 Currency System](#currency-system-in-rentingsystem-)
 - [📸 Screenshots](#-screenshots)
 
 ---
@@ -100,6 +101,35 @@ The input data is defined in the `SeedData` classes for all roles:
 Once completed, the project will be ready with the configured database! 🚀
 
 ---
+
+# Currency System in RentingSystem 💰🚗
+
+The **RentingSystem** project features a custom virtual currency called **BGN** 🪙, designed solely for demo purposes and to enhance user experience within the application. This currency has no connection to real money.
+
+## Key Features 🌟
+
+1. **BGN Management**:
+   - 🟢 Users can **Top-Up** or 🔴 **Withdraw** BGN from their balance through a dedicated interface.
+   - 📊 The balance is displayed prominently at the top of the page next to the user's name.
+
+2. **Car Rentals with BGN**:
+   - 🚘 Users can rent cars using their BGN balance.
+   - 💵 The cost of renting is calculated based on the daily rental price multiplied by the number of rental days.
+
+3. **Become a Dealer**:
+   - 🏷️ Users can list their cars for rental, earning BGN as other users rent them.
+   - 💼 Dealers receive **90%** of the total rental income, while 🛠️ **10%** is allocated to an administrator as a commission to simulate platform revenue.
+
+## Example Workflow 🛠️
+
+- A user tops up their account with **100 BGN**.
+- They rent a car listed by another user (a dealer) for **2 days** at a price of **10 BGN per day**:
+  - 💰 **Total cost**: `10 BGN/day * 2 days = 20 BGN`.
+  - 🏷️ **Dealer earns**: `90% of 20 BGN = 18 BGN`.
+  - 🛠️ **Administrator earns**: `10% of 20 BGN = 2 BGN`.
+
+---
+
 
 ## 📸 **Screenshots**
 
