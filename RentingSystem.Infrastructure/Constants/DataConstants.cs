@@ -63,5 +63,8 @@
         public const int ReviewScoreMinValue = 1;
         public const int ReviewCommentMaxLength = 500;
         public const int ReviewCommentMinLength = 10;
+
+        //Transaction
+        public const int TransactionCommentMaxLength = 250;
     }
 }

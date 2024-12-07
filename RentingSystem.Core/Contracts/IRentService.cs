@@ -16,5 +16,8 @@ namespace RentingSystem.Core.Contracts
         Task CreateRentAsync(int carId, int days, string userId);
 
         Task<IEnumerable<RentHistoryViewModel>> GetRentHistoryAsync(string userId);
+
+        Task<bool> ProcessRentalPaymentAsync(string userId, int carDealerId, decimal rentalPrice);
+
     }
 }

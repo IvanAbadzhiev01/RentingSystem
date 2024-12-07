@@ -29,5 +29,6 @@
         public const string BalanceNotEnough = "Insufficient funds!";
 
         public const string SuccesWithdraw = "Withdrawal successful!";
+
     }
 }

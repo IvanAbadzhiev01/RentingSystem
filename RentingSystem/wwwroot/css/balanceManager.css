@@ -61,3 +61,34 @@
         #balance-manager .btn-danger:hover {
             background-color: #a71d2a;
         }
+
+.btn-large {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-align: center;
+    text-decoration: none; 
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-large:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .btn-large:active {
+        background-color: #004085;
+        transform: translateY(2px);
+    }
+
+    .btn-large:focus {
+        outline: none;
+    }
+

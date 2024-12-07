@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RentingSystem.Core.Services;
 using RentingSystem.Infrastructure.Data.Common;
 using RentingSystem.Infrastructure.Data.Models;
@@ -12,17 +13,17 @@ namespace RentingSystem.Tests.Services
         private TestDbContext dbContext;
         private IRepository repository;
         private RentService rentService;
-
+        private UserManager<ApplicationUser> userManager;
         [SetUp]
         public async Task SetUp()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "RentingSystemTestDb")
                 .Options;
-
+            
             dbContext = new TestDbContext(options);
             repository = new Repository(dbContext);
-            rentService = new RentService(repository);
+            rentService = new RentService(repository, userManager);
 
             await SeedDatabaseAsync();
         }

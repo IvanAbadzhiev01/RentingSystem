@@ -61,5 +61,14 @@ namespace RentingSystem.Controllers
             TempData[Success] = SuccesWithdraw;
             return RedirectToAction(nameof(Manage));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> History()
+        {
+            string userId = User.Id();
+
+            var transactions = await balanceService.GetUserTransactionsAsync(userId);
+            return View(transactions);
+        }
     }
 }

@@ -1,19 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RentingSystem.Core.Contracts;
 using RentingSystem.Core.Models.Admin;
 using RentingSystem.Core.Models.Rent;
 using RentingSystem.Infrastructure.Data.Common;
 using RentingSystem.Infrastructure.Data.Models;
-
+using static RentingSystem.Infrastructure.Constants.AdministratorConstants;
 namespace RentingSystem.Core.Services
 {
     public class RentService : IRentService
     {
         private readonly IRepository repository;
-
-        public RentService(IRepository _repository)
+        private readonly UserManager<ApplicationUser> userManager;
+        public RentService(
+            IRepository _repository,
+            UserManager<ApplicationUser> _userManager)
         {
             repository = _repository;
+            userManager = _userManager;
         }
         public async Task<IEnumerable<RentServiceModel>> AllAsync()
         {
@@ -72,7 +76,8 @@ namespace RentingSystem.Core.Services
                 ImageUrl = car.ImageUrl,
                 Description = car.Description,
                 Year = car.Year,
-                PricePerDay = car.PricePerDay
+                PricePerDay = car.PricePerDay,
+                DealerId = car.DealerId
             };
 
             return viewModel;
@@ -129,6 +134,80 @@ namespace RentingSystem.Core.Services
             .ToListAsync();
 
             return rents;
+        }
+
+        public async Task<bool> ProcessRentalPaymentAsync(string userId, int carDealerId, decimal rentalPrice)
+        {
+            var user = await repository
+                .All<ApplicationUser>()
+                .Where(u => u.Id == userId)
+                .FirstOrDefaultAsync();
+
+
+            var dealer = await repository
+                .All<Dealer>()
+                .Where(u => u.Id == carDealerId)
+                .FirstOrDefaultAsync(); 
+           
+
+            var userDealer = await repository
+                .All<ApplicationUser>()
+                .Where(u => u.Id == dealer.UserId)
+                .FirstOrDefaultAsync();
+
+
+            var inRoleAdmin = await userManager.GetUsersInRoleAsync(AdminRole);
+
+            var userAdmin = inRoleAdmin.FirstOrDefault();
+
+            if (user == null || userDealer == null || userAdmin == null)
+            {
+                throw new InvalidOperationException("Invalid user data.");
+            }
+
+            
+
+            if (user.Balance < rentalPrice)
+            {
+                return false; 
+            }
+
+            decimal ownerShare = rentalPrice * 0.90M;
+            decimal adminShare = rentalPrice * 0.10M;
+
+            
+            user.Balance -= rentalPrice;
+            userDealer.Balance += ownerShare;
+            userAdmin.Balance += adminShare;
+
+            await repository.SaveChangesAsync();
+
+            
+            await repository.AddAsync<Transaction>(new Transaction
+            {
+                UserId = user.Id,
+                Amount = -rentalPrice,
+                Description = "Car rental payment",
+                Date = DateTime.Now
+            });
+
+            await repository.AddAsync(new Transaction
+            {
+                UserId = userDealer.Id,
+                Amount = ownerShare,
+                Description = "Car rental income",
+                Date = DateTime.Now
+            });
+
+            await repository.AddAsync(new Transaction
+            {
+                UserId = userAdmin.Id,
+                Amount = adminShare,
+                Description = "Platform fee",
+                Date = DateTime.Now
+            });
+
+            return true;
         }
     }
 }

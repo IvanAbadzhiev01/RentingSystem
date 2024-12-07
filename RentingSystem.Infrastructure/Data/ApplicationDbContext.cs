@@ -19,6 +19,7 @@ namespace RentingSystem.Infrasturcture.Data
         public DbSet<Review> Reviews { get; set; } = null!;
         public DbSet<Dealer> Dealers { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
+        public DbSet<Transaction> Transactions { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -38,6 +39,10 @@ namespace RentingSystem.Infrasturcture.Data
             
             builder.Entity<ApplicationUser>()
                 .Property(u => u.Balance)
+                .HasPrecision(18, 2);
+
+            builder.Entity<Transaction>()
+                .Property(t => t.Amount)
                 .HasPrecision(18, 2);
 
             builder.ApplyConfiguration(new UserConfiguration());

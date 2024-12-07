@@ -5,6 +5,7 @@ namespace RentingSystem.Core.Models.Rent
     public class RentViewModel
     {
         public int CarId { get; set; }
+        public int DealerId { get; set; }
         public string Title { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

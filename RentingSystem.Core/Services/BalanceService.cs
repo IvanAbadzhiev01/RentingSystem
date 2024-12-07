@@ -24,6 +24,15 @@ namespace RentingSystem.Core.Services
             {
                 user.Balance += amount;
 
+                await repository.AddAsync(new Transaction
+                {
+                    UserId = userId,
+                    Amount = amount,
+                    Description = "Balance top-up",
+                    Date = DateTime.Now
+                });
+
+
                 await repository.SaveChangesAsync();
             }
 
@@ -35,7 +44,7 @@ namespace RentingSystem.Core.Services
                 .All<ApplicationUser>()
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
-            if(user == null)
+            if (user == null)
             {
                 return false;
             }
@@ -46,6 +55,15 @@ namespace RentingSystem.Core.Services
             }
 
             user.Balance -= amount;
+
+            await repository.AddAsync(new Transaction
+            {
+                UserId = userId,
+                Amount = -amount,
+                Description = "Balance withdrawal",
+                Date = DateTime.Now
+            });
+
             await repository.SaveChangesAsync();
             return true;
         }
@@ -58,6 +76,15 @@ namespace RentingSystem.Core.Services
                  .FirstOrDefaultAsync();
 
             return balance;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetUserTransactionsAsync(string userId)
+        {
+            return await repository
+                         .AllReadOnly<Transaction>()
+                         .Where(t => t.UserId == userId)
+                         .OrderByDescending(t => t.Date)
+                         .ToListAsync();
         }
     }
 }

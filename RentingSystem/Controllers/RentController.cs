@@ -67,7 +67,16 @@ namespace RentingSystem.Controllers
                 TempData[Error] = CarRentError;
                 return BadRequest();
             }
+            var car = await rentService.GetCarForRentAsync(id);
 
+
+            bool paymentSuccessful = await rentService.ProcessRentalPaymentAsync(User.Id(), car.DealerId, car.PricePerDay * days);
+
+            if (!paymentSuccessful)
+            {
+                TempData[Error] = BalanceNotEnough;
+                return RedirectToAction("Manage", "Balance");
+            }
 
             await rentService.CreateRentAsync(id, days, User.Id());
             TempData[Success] = CarRentSuccess;
