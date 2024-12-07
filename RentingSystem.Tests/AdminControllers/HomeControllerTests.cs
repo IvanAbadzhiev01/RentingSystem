@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NUnit.Framework;
 using RentingSystem.Areas.Admin.Controllers;
-
-[TestFixture]
-public class HomeControllerTests
+namespace RentingSystem.Tests.AdminControllers
 {
-    private HomeController _controller;
 
-    [SetUp]
-    public void SetUp()
+    [TestFixture]
+    public class HomeControllerTests
     {
-        _controller = new HomeController();
+        private HomeController _controller;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _controller = new HomeController();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _controller.Dispose();
+        }
+
+        [Test]
+        public void Dashboard_ShouldReturnViewResult()
+        {
+            var result = _controller.Dashboard();
+
+            Assert.That(result, Is.TypeOf<ViewResult>());
+        }
     }
 
-    [TearDown]
-    public void TearDown()
-    {
-        _controller.Dispose();
-    }
-
-    [Test]
-    public void Dashboard_ShouldReturnViewResult()
-    {
-        var result = _controller.Dashboard();
-
-        Assert.That(result, Is.TypeOf<ViewResult>());
-    }
 }
