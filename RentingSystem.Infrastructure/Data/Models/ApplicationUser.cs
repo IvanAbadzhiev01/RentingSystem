@@ -13,6 +13,11 @@ namespace RentingSystem.Infrastructure.Data.Models
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; set; } = string.Empty;
 
+        [Required]
+        [Range(typeof(decimal), ApplicationUserBalanceMinValue, ApplicationUserBalanceMaxValue)]
+        public decimal Balance { get; set; } = 0;
+
+
         public Dealer? Dealer { get; set; } 
     }
 }

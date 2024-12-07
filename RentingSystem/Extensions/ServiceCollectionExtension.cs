@@ -20,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRentService, RentService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddSignalR();
+            services.AddScoped<IBalanceService, BalanceService>();
            
 
             return services;

@@ -35,6 +35,11 @@ namespace RentingSystem.Infrasturcture.Data
                 .HasForeignKey(r => r.DealerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            
+            builder.Entity<ApplicationUser>()
+                .Property(u => u.Balance)
+                .HasPrecision(18, 2);
+
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new DealerConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());

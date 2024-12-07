@@ -2,14 +2,17 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IDealerService dealerService
+@inject IBalanceService balanceService;
 
 @{
     string userName = string.Empty;
-
+    decimal userBalance = 0;
     if (SignInManager.IsSignedIn(User))
     {
 
         userName = User.FindFirstValue(RentingSystem.Infrastructure.Constants.CustomClaims.UserFullName);
+        userBalance = await balanceService.GetBalanceAsync(User.Id());
+
     }
 }
 
@@ -31,6 +34,9 @@
         }
         <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @userName!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Balance" asp-action="Manage" title="Manage">Balance: @userBalance BGN</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

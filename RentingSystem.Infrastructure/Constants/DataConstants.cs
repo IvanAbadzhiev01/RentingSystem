@@ -55,6 +55,8 @@
         public const int ApplicationUserFirstNameMaxLength = 50;
         public const int ApplicationUserLastNameMinLength = 2;
         public const int ApplicationUserLastNameMaxLength = 50;
+        public const string ApplicationUserBalanceMinValue = "0";
+        public const string ApplicationUserBalanceMaxValue = "1_000_000_000";
 
         //Review
         public const int ReviewScoreMaxValue = 5;

@@ -1,0 +1,63 @@
+﻿#balance-manager {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+    #balance-manager .balance-tabs {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        
+    }
+
+    #balance-manager .balance-tab-btn {
+        padding: 10px 20px;
+        border: none;
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        background-color: transparent;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+        #balance-manager .balance-tab-btn.active {
+            border-color: #007bff;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+    #balance-manager .balance-tab-content {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #0d6dfc;
+    }
+
+    #balance-manager .balance-tab-panel {
+        display: none;
+    }
+
+        #balance-manager .balance-tab-panel.active {
+            display: block;
+        }
+
+    #balance-manager .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+
+    #balance-manager .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        #balance-manager .btn-danger:hover {
+            background-color: #a71d2a;
+        }

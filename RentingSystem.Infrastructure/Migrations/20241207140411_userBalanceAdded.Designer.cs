@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingSystem.Infrasturcture.Data;
 
@@ -11,9 +12,11 @@ using RentingSystem.Infrasturcture.Data;
 namespace RentingSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207140411_userBalanceAdded")]
+    partial class userBalanceAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -409,7 +412,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("RenterId");
 
-                    b.ToTable("Cars", null, t =>
+                    b.ToTable("Cars", t =>
                         {
                             t.HasComment("Car table");
                         });
@@ -489,7 +492,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", null, t =>
+                    b.ToTable("Categories", t =>
                         {
                             t.HasComment("Category of the car");
                         });
@@ -560,7 +563,7 @@ namespace RentingSystem.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Dealers", null, t =>
+                    b.ToTable("Dealers", t =>
                         {
                             t.HasComment("Dealer of the car");
                         });
@@ -620,7 +623,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Rents", null, t =>
+                    b.ToTable("Rents", t =>
                         {
                             t.HasComment("Renting of the product");
                         });
@@ -692,7 +695,7 @@ namespace RentingSystem.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", null, t =>
+                    b.ToTable("Reviews", t =>
                         {
                             t.HasComment("Review of the rent");
                         });

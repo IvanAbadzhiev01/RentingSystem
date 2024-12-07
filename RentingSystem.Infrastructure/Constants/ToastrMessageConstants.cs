@@ -20,5 +20,14 @@
         public const string EditCarSuccess = "Car edited successfully!";
 
         public const string DeleteCarSuccess = "Car deleted successfully!";
+
+        //Balance
+        public const string BalanceGreateThanZero = "Balance must be greater than zero!";
+
+        public const string BalanceSuccess = "Balance added successfully!";
+
+        public const string BalanceNotEnough = "Insufficient funds!";
+
+        public const string SuccesWithdraw = "Withdrawal successful!";
     }
 }
