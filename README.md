@@ -4,6 +4,11 @@ Welcome to the **RentingSystem** project! It is a car rental web application wit
 
 ---
 
+## 🚀 Live demo 
+See the live app here: [RentingSystem Demo](https://rentingsystem20241208175033.azurewebsites.net/)
+
+---
+
 ## 🌐 **Navigation** 🗺️
 
 - [👤 What users can do](#-what-users-can-do)
